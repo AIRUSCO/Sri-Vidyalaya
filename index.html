@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Vidyalaya PU College</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* BLUE HEADER */
+.hero {
+    background: #2f5ea5; 
+    color: white;
+    height: 200px;              /* FIXED HEIGHT */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    /* CENTER VERTICALLY */
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;   
+        /* REMOVE LARGE PADDING */
+}
+
+.hero h1 {
+    font-size: 50px;
+    letter-spacing: 1px;
+}
+
+.hero p {
+    margin-top: 8px;
+    font-size: 30px;
+    color: #d0d0d0;
+}
+
+/* MAIN CONTENT */
+.container {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+/* COMING SOON BADGE */
+.badge {
+    display: inline-block;
+    background: #ffd700;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    font-size: 30px;
+}
+
+/* SUBTITLE */
+.subtitle {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+/* COURSE */
+.course {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* 🔥 BIG ADMISSION SECTION */
+.admission {
+    background: #2f5ea5; /* SAME as header */
+    color: white;
+    display: inline-block;
+    padding: 25px 40px;
+    border-radius: 10px;
+    margin: 30px 0;
+    font-weight: bold;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+/* SMALL YEAR TEXT */
+.admission span {
+    display: block;
+    font-size: 30px;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+/* CONTACT */
+.contact {
+    margin-top: 30px;
+    color: #444;
+    line-height: 1.9;
+    font-size: 20px;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 50px;
+    color: #777;
+    font-size: 20px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .admission {
+        font-size: 22px;
+        padding: 18px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="hero">
+    <h1>Sri Vidyalaya PU College</h1>
+    <p>Premier Commerce Education in Shivamogga</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <div class="badge">Website Coming Soon</div>
+
+    <p class="subtitle">
+        Admissions for PU Commerce – SEBA
+    </p>
+
+    <div class="course">
+        SEBA (Statistics, Economics, Business Studies, Accountancy)
+    </div>
+
+    <!-- 🔥 UPDATED ADMISSION -->
+    <div class="admission">
+        ADMISSIONS OPEN NOW
+        <span>2026 – 2027</span>
+    </div>
+
+    <div class="contact">
+        📍 17, 1st Cross Rd, Hosamane,<br>
+        Shivamogga, Karnataka 577201<br><br>
+
+        📧 Srividyalaya26@gmail.com<br>
+        📞 8088449499
+    </div>
+
+    <div class="footer">
+        © Sri Vidyalaya PU College | Shivamogga
+    </div>
+
+</div>
+
+</body>
+</html>
