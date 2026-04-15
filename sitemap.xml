@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://kvgreens.uk/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://kvgreens.uk/about.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kvgreens.uk/services.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kvgreens.uk/contact.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Service pages -->
+  <url>
+    <loc>https://kvgreens.uk/Services/agricultural-innovation.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kvgreens.uk/Services/forestry-silviculture.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kvgreens.uk/Services/land-management.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kvgreens.uk/Services/mixed-farming.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kvgreens.uk/Services/sustainable-agriculture.html</loc>
+  </url>
+
+</urlset>
