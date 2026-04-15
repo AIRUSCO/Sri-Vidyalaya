@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------ 
+﻿/*------------------------------------------------------------------ 
     IMPORT FONTS 
 -------------------------------------------------------------------*/
 
@@ -471,8 +471,8 @@ a.navbar-brand {
 
 a.navbar-brand img {
 	width: auto;
-	height: 90px;
-	max-height: 90px;
+	height: 130px;
+	max-height: 130px;
 }
 
 .top-header .navbar .navbar-collapse ul li a:focus {
@@ -609,7 +609,7 @@ a.navbar-brand img {
 	left: 0;
 	right: 0;
 	height: 100%;
-	padding: 22% 0%;
+	padding: 5% 0%;
 }
 
 .lbox-details::before {
@@ -666,6 +666,11 @@ a.navbar-brand img {
 
 .pogoSlider-slide {
 
+}
+
+.pogoSlider-slide {
+	background-position: top center !important;
+	background-size: cover !important;
 }
 
 .pogoSlider-nav-btn {
@@ -800,6 +805,38 @@ a.navbar-brand img {
 	object-position: center center;
 }
 
+.who-we-are-section {
+	align-items: stretch !important;
+}
+
+.who-we-are-image-col > .full {
+	height: 100%;
+	justify-content: stretch;
+}
+
+.who-we-are-image-col .why-img {
+	height: 100%;
+	max-height: none;
+	object-fit: cover;
+	object-position: center center;
+	border-radius: 12px;
+}
+
+.who-we-are-text-col > .full {
+	justify-content: center;
+	padding-left: 20px;
+}
+
+.who-we-are-text-col .heading_main {
+	margin-bottom: 18px;
+}
+
+.who-we-are-text-col p {
+	text-align: justify;
+	line-height: 1.8;
+	margin-bottom: 16px;
+}
+
 @media (max-width: 991px) {
 	.about-why-row {
 		display: block !important;
@@ -815,13 +852,22 @@ a.navbar-brand img {
 		flex: none;
 	}
 
+	.who-we-are-image-col .why-img {
+		max-height: none;
+		margin-bottom: 24px;
+	}
+
+	.who-we-are-text-col > .full {
+		padding-left: 0;
+	}
+
 	.why-section:not(.about-why-row) .why-img {
 		max-height: none;
 	}
 }
 
 #js-main-slider .slide_text {
-	min-height: 420px;
+	min-height: 220px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -837,7 +883,7 @@ a.navbar-brand img {
 
 .slide_text h1 {
     font-weight: 800;
-	font-size: 84px;
+	font-size: 58px;
     padding: 0;
 	line-height: 1.05;
     text-align: center;
@@ -2380,6 +2426,10 @@ footer.footer-box p {
 
 .footer_blog img.logo {
 	margin-top: 12px;
+	height: 260px;
+	max-height: 260px;
+	width: auto;
+	max-width: none;
 }
 
 ul.bottom_menu li a {
@@ -2555,3 +2605,4 @@ section.inner_banner h1 {
     padding-right: 10px;}
 
 	
+

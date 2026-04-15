@@ -1,4 +1,4 @@
-from openpyxl import Workbook
+﻿from openpyxl import Workbook
 from datetime import date
 
 wb = Workbook()
@@ -14,7 +14,7 @@ completed = [
     ["Completed", "Standardized header and footer across all pages", "Done", "High", "Global layout", "Unified navigation/footer sections for consistency"],
     ["Completed", "Fixed broken image paths on About and What We Stand For pages", "Done", "High", "about.html, what-we-stand-for.html", "Corrected image filenames and paths"],
     ["Completed", "Adjusted image/text alignment for About and What We Stand For sections", "Done", "Medium", "About + Values sections", "Improved equal-height behavior and responsive layout"],
-    ["Completed", "Created new KV Greens Services page", "Done", "High", "services.html", "Added full service sections with alternating text/image layout"],
+    ["Completed", "Created new Sri Vidyalaya PU College Services page", "Done", "High", "services.html", "Added full service sections with alternating text/image layout"],
     ["Completed", "Enhanced services page spacing, button consistency, and hero description", "Done", "Medium", "services.html", "Applied service-section spacing and unified Learn More button style"],
 ]
 
@@ -49,6 +49,7 @@ for r in range(2, ws.max_row + 1):
     ws.cell(r, 2).alignment = Alignment(vertical="top", wrap_text=True)
     ws.cell(r, 6).alignment = Alignment(vertical="top", wrap_text=True)
 
-file_name = "KV-Greens-Launch-Tracker.xlsx"
+file_name = "Sri-Vidyalaya-PU-College-Launch-Tracker.xlsx"
 wb.save(file_name)
 print(file_name)
+
