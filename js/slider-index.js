@@ -6,7 +6,7 @@ $(window).on('load', function () {
         displayProgess: true,
         preserveTargetSize: true,
         targetWidth: 1000,
-        targetHeight: 220,
+        targetHeight: 110,
         responsive: true,
         pauseOnHover: true,
         generateNav: true,

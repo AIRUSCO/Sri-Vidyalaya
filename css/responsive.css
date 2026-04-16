@@ -173,10 +173,26 @@ a.navbar-brand img {
 }
 /* mobile or only mobile */
  @media (max-width: 767px) {
+     .ulockd-home-slider,
+     #js-main-slider,
+     #js-main-slider .pogoSlider-slide{
+         height: 420px !important;
+     }
      .navbar-brand{
          margin-left: 10px;
          margin-right: 10px;
     }
+     .slide_text h1{
+         font-size: 34px;
+         line-height: 1.15;
+     }
+     #js-main-slider .home_bt{
+         min-width: auto;
+         width: 100%;
+         max-width: 280px;
+         padding: 0 20px;
+         font-size: 14px;
+     }
      .top-header .navbar .navbar-collapse ul li a{
          padding: 5px 15px;
     }

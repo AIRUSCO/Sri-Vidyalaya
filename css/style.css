@@ -673,6 +673,19 @@ a.navbar-brand img {
 	background-size: cover !important;
 }
 
+.pogoSlider-slide.result-poster-slide {
+	background-size: auto 88% !important;
+	background-position: center 12px !important;
+	background-repeat: no-repeat !important;
+	background-color: #0d3b8a;
+}
+
+.ulockd-home-slider,
+#js-main-slider,
+#js-main-slider .pogoSlider-slide {
+	height: 620px !important;
+}
+
 .pogoSlider-nav-btn {
 	background: #000;
 }
@@ -785,6 +798,19 @@ a.navbar-brand img {
 	max-height: 500px;
 }
 
+.why-section .why-image-col {
+	display: flex;
+	align-items: stretch;
+}
+
+.why-section .why-image-col .why-img {
+	height: 100%;
+	max-height: none;
+	width: 100%;
+	object-fit: cover;
+	object-position: center center;
+}
+
 .content-image-row .col-md-6 {
 	display: flex;
 	align-items: stretch;
@@ -867,7 +893,7 @@ a.navbar-brand img {
 }
 
 #js-main-slider .slide_text {
-	min-height: 220px;
+	min-height: 90px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -878,7 +904,11 @@ a.navbar-brand img {
 #js-main-slider .home_bt {
 	float: none;
 	display: inline-block;
-	margin-top: 30px;
+	margin-top: 16px;
+	padding: 0 34px;
+	min-width: 360px;
+	text-align: center;
+	white-space: nowrap;
 }
 
 .slide_text h1 {
