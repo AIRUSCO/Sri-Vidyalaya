@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admission Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* SAME DESIGN - NO CHANGES */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1f3f7a, #2f5ea5);
+}
+.header {
+    background: linear-gradient(#2f5ea5);
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+.container {
+    max-width: 520px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+label { font-weight: 600; display: block; margin-top: 10px; }
+.required { color: red; }
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    width: 48%;
+    background: linear-gradient(#2f5ea5);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.step { display: none; }
+.step.active { display: block; }
+.success { text-align: center; color: green; }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>Sri Vidyalaya PU College</h1>
+<p>Premier Commerce College in Shimoga</p>
+<h3>Admission Form 2026</h3>
+</div>
+
+<div class="container">
+
+<form id="form">
+
+<!-- STEP 1 -->
+<div class="step active">
+<h3>Basic Details</h3>
+
+<input id="name" placeholder="Name">
+<input type="date" id="dob">
+<input id="mobile" placeholder="Mobile">
+<input id="email" placeholder="Email">
+<input id="address" placeholder="Address">
+
+<label>Aadhaar</label>
+<input type="file" id="aadhaar">
+
+<label>Photo</label>
+<input type="file" id="photo">
+
+<button type="button" onclick="nextStep(0)">Next</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+<h3>Academic</h3>
+
+<input id="marks" placeholder="Marks">
+<input type="file" id="marksheet">
+
+<select id="board">
+<option>State</option>
+<option>CBSE</option>
+<option>ICSE</option>
+</select>
+
+<input id="school" placeholder="School">
+
+<button onclick="prevStep(1)" type="button">Back</button>
+<button onclick="nextStep(1)" type="button">Next</button>
+</div>
+
+<!-- FINAL -->
+<div class="step">
+<h3>Submit</h3>
+<button onclick="prevStep(2)" type="button">Back</button>
+<button type="submit">Submit</button>
+</div>
+
+</form>
+
+<div id="successMessage" class="success"></div>
+
+</div>
+
+<script>
+let steps = document.querySelectorAll(".step");
+
+function nextStep(s){
+steps[s].classList.remove("active");
+steps[s+1].classList.add("active");
+}
+function prevStep(s){
+steps[s].classList.remove("active");
+steps[s-1].classList.add("active");
+}
+
+// 🔥 CONVERT FILE TO BASE64
+function toBase64(file){
+return new Promise((resolve,reject)=>{
+const reader = new FileReader();
+reader.readAsDataURL(file);
+reader.onload = ()=> {
+let base64 = reader.result.split(',')[1];
+resolve({
+data: base64,
+type: file.type,
+name: file.name
+});
+};
+});
+}
+
+// 🔥 SUBMIT FORM
+document.getElementById("form").addEventListener("submit", async function(e){
+e.preventDefault();
+
+let aadhaarFile = document.getElementById("aadhaar").files[0];
+let photoFile = document.getElementById("photo").files[0];
+let marksheetFile = document.getElementById("marksheet").files[0];
+
+let data = {
+name: document.getElementById("name").value,
+dob: document.getElementById("dob").value,
+mobile: document.getElementById("mobile").value,
+email: document.getElementById("email").value,
+address: document.getElementById("address").value,
+marks: document.getElementById("marks").value,
+board: document.getElementById("board").value,
+school: document.getElementById("school").value,
+aadhaar: aadhaarFile ? await toBase64(aadhaarFile) : null,
+photo: photoFile ? await toBase64(photoFile) : null,
+marksheet: marksheetFile ? await toBase64(marksheetFile) : null
+};
+
+fetch("https://script.google.com/macros/s/AKfycbyp5kd3T9HS-GNu_3NfApsDvKHpAl72yCGWYYGAY1a2zPjcpwkCLaLq_qgYsmbrQN3mSA/exec", {
+method: "POST",
+body: JSON.stringify(data)
+})
+.then(res => res.text())
+.then(res => {
+document.getElementById("form").style.display="none";
+document.getElementById("successMessage").innerText="Application Submitted Successfully";
+})
+.catch(err=>{
+alert("Error submitting form");
+console.log(err);
+});
+
+});
+</script>
+
+</body>
+</html>
