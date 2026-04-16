@@ -92,6 +92,7 @@ button {
 <input type="file" id="marksheet">
 
 <select id="board">
+<option value="">Select Board</option>
 <option>State</option>
 <option>CBSE</option>
 <option>ICSE</option>
@@ -251,7 +252,7 @@ marks: document.getElementById("marks").value,
 board: document.getElementById("board").value,
 school: document.getElementById("school").value,
 
-language: document.getElementById("language").value,
+language: document.getElementById("Language").value,
 courses: selectedCourses,
 activities: selectedActivities,
 
@@ -261,39 +262,33 @@ marksheet: document.getElementById("marksheet").files[0] ? await toBase64(docume
 };
 
 
-await fetch("https://script.google.com/macros/s/AKfycbyp5kd3T9HS-GNu_3NfApsDvKHpAl72yCGWYYGAY1a2zPjcpwkCLaLq_qgYsmbrQN3mSA/exec", {
+try {
+
+let response = await fetch("https://script.google.com/macros/s/AKfycbwVxeCH8fSBweRCibw6G-cgZmPKFYWtJJzYPrjYBgMqgLOEFFpn2X3GQIrmqqwI4WbU/exec", {
   method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
-})
-.then(res => res.text())
-.then(res => {
-  console.log(res);
-  document.getElementById("form").style.display="none";
-  document.getElementById("successMessage").innerText="Application Submitted Successfully";
-})
-.catch(err=>{
-  console.log("FULL ERROR:", err);
-  alert("Error submitting form");
+  body: JSON.stringify(data)   // ❗ NO headers
 });
 
-// ✅ Success
-document.getElementById("form").style.display="none";
-document.getElementById("successMessage").innerText="Application Submitted Successfully";
+let result = await response.text();
 
-} catch(err){
-alert("Error");
-console.log(err);
+console.log("SERVER RESPONSE:", result);
 
-// 🔄 Re-enable if failed
-isSubmitting = false;
-submitBtn.disabled = false;
-submitBtn.innerText = "Submit";
+if(result.includes("success") || result.includes("Success")){
+  document.getElementById("form").style.display = "none";
+  document.getElementById("successMessage").innerText = "Application Submitted Successfully";
+} else {
+  alert("Server error: " + result);
+  isSubmitting = false;
 }
 
-});
+} catch(err){
+  console.log("FULL ERROR:", err);
+  alert("Error submitting form");
+
+  isSubmitting = false;
+  submitBtn.disabled = false;
+  submitBtn.innerText = "Submit";
+}
 
 
 </script>
