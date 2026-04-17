@@ -50,6 +50,22 @@ button {
 .step { display: none; }
 .step.active { display: block; }
 .success { text-align: center; color: green; }
+.message { text-align: center; margin-top: 16px; }
+.message.error { color: #d32f2f; }
+.message.success { color: #2e7d32; }
+.message .home-link {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 18px;
+    background: #2f5ea5;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+}
+.message .home-link:hover {
+    background: #244a86;
+}
 </style>
 </head>
 
@@ -92,7 +108,6 @@ button {
 <input type="file" id="marksheet">
 
 <select id="board">
-<option value="">Select Board</option>
 <option>State</option>
 <option>CBSE</option>
 <option>ICSE</option>
@@ -115,7 +130,7 @@ button {
 </p>
 
 <label> First Language <span class="required">*</span></label>
-<select id="Language">
+<select id="language">
 <option value="">Select</option>
 <option>Kannada</option>
 <option>Sanskrit</option>
@@ -140,7 +155,7 @@ button {
 <div class="step">
 <h3>Activities</h3>
 <label style="display:block; margin:5px 0;">
-<input type="checkbox"> Music
+
 </label>
 
 <label><input type="checkbox" name="activities" value="Music"> Music</label>
@@ -188,6 +203,7 @@ Please bring the following documents when visiting the college:
 
 </form>
 
+<div id="formMessage" class="message"></div>
 <div id="successMessage" class="success"></div>
 
 </div>
@@ -219,6 +235,10 @@ name: file.name
 });
 }
 
+function getFileInputData(id) {
+const file = document.getElementById(id).files[0];
+return file ? toBase64(file) : Promise.resolve(null);
+}
 
 // 🔥 Submit (FIXED - NO DUPLICATES)
 let isSubmitting = false;
@@ -242,6 +262,12 @@ let selectedCourses = [...document.querySelectorAll('input[name="courses"]:check
 let selectedActivities = [...document.querySelectorAll('input[name="activities"]:checked')]
   .map(el => el.value).join(", ");
 
+const [aadhaar, photo, marksheet] = await Promise.all([
+  getFileInputData("aadhaar"),
+  getFileInputData("photo"),
+  getFileInputData("marksheet")
+]);
+
 let data = {
 name: document.getElementById("name").value,
 dob: document.getElementById("dob").value,
@@ -252,43 +278,60 @@ marks: document.getElementById("marks").value,
 board: document.getElementById("board").value,
 school: document.getElementById("school").value,
 
-language: document.getElementById("Language").value,
+language: document.getElementById("language").value,
 courses: selectedCourses,
 activities: selectedActivities,
 
-aadhaar: document.getElementById("aadhaar").files[0] ? await toBase64(document.getElementById("aadhaar").files[0]) : null,
-photo: document.getElementById("photo").files[0] ? await toBase64(document.getElementById("photo").files[0]) : null,
-marksheet: document.getElementById("marksheet").files[0] ? await toBase64(document.getElementById("marksheet").files[0]) : null
+aadhaar,
+photo,
+marksheet
 };
 
 
-try {
-
-let response = await fetch("https://script.google.com/macros/s/AKfycbwVxeCH8fSBweRCibw6G-cgZmPKFYWtJJzYPrjYBgMqgLOEFFpn2X3GQIrmqqwI4WbU/exec", {
+const response = await fetch("https://script.google.com/macros/s/AKfycbwVxeCH8fSBweRCibw6G-cgZmPKFYWtJJzYPrjYBgMqgLOEFFpn2X3GQIrmqqwI4WbU/exec", {
   method: "POST",
-  body: JSON.stringify(data)   // ❗ NO headers
+  body: JSON.stringify(data)
 });
 
-let result = await response.text();
+const text = await response.text();
+console.log("SERVER RESPONSE:", text);
 
-console.log("SERVER RESPONSE:", result);
-
-if(result.includes("success") || result.includes("Success")){
-  document.getElementById("form").style.display = "none";
-  document.getElementById("successMessage").innerText = "Application Submitted Successfully";
-} else {
-  alert("Server error: " + result);
-  isSubmitting = false;
+let result;
+try {
+  result = JSON.parse(text);
+} catch (parseError) {
+  // Accept plain text success from older Apps Script deployments
+  if (text.trim().toLowerCase() === "success") {
+    result = { status: "success" };
+  } else {
+    throw new Error("Invalid server response: " + text);
+  }
 }
+
+if (!response.ok || result.status !== "success") {
+  const errorMessage = result && result.message ? result.message : text || "Server rejected the submission";
+  throw new Error(errorMessage);
+}
+
+// ✅ Success
+const formMessage = document.getElementById("formMessage");
+formMessage.className = "message success";
+formMessage.innerHTML = "Application Submitted Successfully<br>We will contact you soon<br><a href=\"index.html\" class=\"home-link\">Back to Home</a>";
+document.getElementById("form").style.display = "none";
 
 } catch(err){
-  console.log("FULL ERROR:", err);
-  alert("Error submitting form");
+const formMessage = document.getElementById("formMessage");
+formMessage.className = "message error";
+formMessage.innerText = err.message || "Submission failed. Please try again.";
+console.log(err);
 
-  isSubmitting = false;
-  submitBtn.disabled = false;
-  submitBtn.innerText = "Submit";
+// 🔄 Re-enable if failed
+isSubmitting = false;
+submitBtn.disabled = false;
+submitBtn.innerText = "Submit";
 }
+
+});
 
 
 </script>
