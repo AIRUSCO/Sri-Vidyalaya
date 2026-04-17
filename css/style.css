@@ -2634,34 +2634,4 @@ section.inner_banner h1 {
     top: 5px;
     padding-right: 10px;}
 
-	/* ===== CORE VALUES CARD DESIGN ===== */
-
-.service-detail-content {
-    margin-bottom: 30px;
-}
-
-/* Card box */
-.service-detail-content p {
-    background: #ffffff;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    height: 100%;
-    transition: all 0.3s ease;
-    line-height: 1.7;
-}
-
-/* Hover effect */
-.service-detail-content p:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.15);
-}
-
-/* Title styling */
-.service-detail-content strong {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 8px;
-}
 	
-
