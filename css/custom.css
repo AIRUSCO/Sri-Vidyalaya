@@ -21,7 +21,120 @@
     object-fit: cover;
     object-position: center;
 }
+.why-list {
+    list-style: disc !important;
+    padding-left: 20px !important;
+    margin: 15px 0;
+}
 
+.why-list li {
+    display: list-item !important;
+    margin-bottom: 8px;
+}
+
+.rounded-h4 {
+    line-height:0.5;
+}
+
+.highlights-timeline {
+    max-width: 1200px;   /* controls width */
+    margin: 0 auto;     /* center align */
+    position: relative;
+    padding-left: 30px;
+}
+
+/* LEFT LINE */
+.highlights-timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #2a7de1;
+}
+
+/* CARD STYLE (THIS IS THE KEY 🔥) */
+.highlight-card {
+    background: #ffffff;
+    margin-bottom: 20px;
+    padding: 18px 22px;
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.3s ease;
+}
+
+/* HOVER EFFECT (VERY PREMIUM) */
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* TEXT */
+.highlight-card h4 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.highlight-card p {
+     opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+}
+.highlight-card.show {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.custom-list {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding-left: 0;
+    list-style: none;
+}
+
+.custom-list li {
+    background: #ffffff;
+    margin-bottom: 12px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    font-size: 14px;
+    position: relative;
+}
+.center-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.vision-content {
+    max-width: 1200px;
+    text-align:center;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.vision-content p {
+    margin-bottom: 15px;
+}
+/* Bullet style */
+.custom-list li::before {
+    content: "✔";
+    color: #2a7de1;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.mission-box {
+    text-align: center;
+    padding: 15px;
+}
 #js-main-slider .banner_01-slide {
     background-size: 100% auto !important;
     background-position: center center !important;

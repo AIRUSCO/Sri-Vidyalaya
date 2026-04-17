@@ -105,3 +105,23 @@
 	
 }(jQuery));
 
+
+const cards = document.querySelectorAll('.highlight-card');
+
+function revealCards() {
+    cards.forEach((card, index) => {
+        const top = card.getBoundingClientRect().top;
+        const trigger = window.innerHeight - 100;
+
+        if (top < trigger) {
+            setTimeout(() => {
+                card.classList.add('show');
+            }, index * 200); // delay for one-by-one effect
+        }
+    });
+}
+
+window.addEventListener('scroll', revealCards);
+
+/* Run once on load */
+revealCards();
