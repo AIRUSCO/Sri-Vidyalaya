@@ -135,6 +135,53 @@
     text-align: center;
     padding: 15px;
 }
+
+/* mission */
+/* GRID LAYOUT */
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* WHITE BOX STYLE */
+.mission-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+     border-color: #2a7de1;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+/* HOVER EFFECT (premium feel) */
+.mission-card:hover {
+    transform: translateY(-5px);
+   
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* TEXT */
+.mission-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .mission-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+}
 #js-main-slider .banner_01-slide {
     background-size: 100% auto !important;
     background-position: center center !important;
