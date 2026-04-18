@@ -47,8 +47,8 @@
     <link rel="stylesheet" href="css/responsive.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css" />
-<style>Paste this entire CSS as your custom.css.  
-This is made for your current index page HTML and will style it correctly even without style.css/responsive.css.
+<style>
+
 
 :root {
     --brand-blue: #285da2;
@@ -592,6 +592,45 @@ span.icon img {
 
 .footer_blog h5 {
     white-space: nowrap;
+    margin-bottom: 14px;
+    color: #000;
+    border-bottom: 1px solid #000;
+    font-weight: 600;
+    margin-top: 14px;
+    width: 100%;
+    font-size: 24px;
+}
+
+.footer_blog ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer_blog ul li {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.footer_blog ul li img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    position: relative;
+    top: 2px;
+}
+
+.footer_bottom {
+    background: #fff;
+    padding: 8px 0;
+}
+
+@media (max-width: 767px) {
+    .footer_blog h5 {
+        font-size: 20px;
+        white-space: normal;
+    }
+}
     </style>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -689,7 +728,7 @@ span.icon img {
                             <li><a href="https://www.linkedin.com/in/sri-vidyalaya-95a640403?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="black-blue" rel="noopener norefferer" target="_blank"><span class="icon"><img src="img/socials/linkedin_icon.svg" alt="Sri Vidyalaya PU College Linkedin Page" /></span><span>LinkedIn</span></a></li>
                             <li><a href="https://wa.me/918088449499" class="black-blue" rel="noopener norefferer" target="_blank"><span class="icon"><img src="img/socials/whatsapp_icon.svg" alt="Sri Vidyalaya WhatsApp Profile" /></span><span>WhatsApp</span></a></li>
                             <li><a href="contact.html"><span class="icon"><img src="img/icons/address_icon.png" alt="Sri Vidyalaya PU College Location Link" /></span><span>Location</span></a></li>
-                            <li><a href="tel:8088449499"><span class="icon"><img src="img/icons/landline_icon_fill_white.png" alt="Phone Number" /></span><span>Call us</span></a></l>
+                            <li><a href="tel:8088449499"><span class="icon"><img src="img/icons/landline_icon_fill_white.png" alt="Phone Number" /></span><span>Call us</span></a></li>
                             <li><a href="mailto:ASK@svpucollege.org"><span class="icon"><img src="img/icons/email_sealed_icon_fill.png" alt="Email Us" /></span><span>Email</span></a></li>
                         </ul>
                     </div>
@@ -712,7 +751,6 @@ span.icon img {
 	<div class="section layout_padding_2">
         <div class="container">
             <div class="text_align_center">
-                <strong
                 <p>Sri Vidyalaya PU College adopts an AI-first approach to modern education, aiming to integrate artificial intelligence into teaching, learning, and administration. The objective is to prepare students with future-ready skills, analytical thinking, and digital literacy aligned with global education standards.</p>
                 <p>The institution ensures that AI integration supports and enhances the prescribed PU curriculum without deviation, maintaining alignment with academic regulations while adopting innovative teaching methodologies.</p>
                 <p>“The college is committed to gradually evolving into a digitally empowered campus with AI-supported academic processes, ensuring quality education and future readiness of students.”</p>
@@ -758,7 +796,7 @@ span.icon img {
         <!-- IMAGE -->
         <div class="col-md-6 who-we-are-image-col">
             <div class="full">
-                 <img src="img/Who_We_Are_Sri_Vidyalaya_PU_College.png" "
+                 <img src="img/Who_We_Are_Sri_Vidyalaya_PU_College.png"
 	
                      alt="Sri Vidyalaya PU College students and faculty" 
                      class="why-img" />
@@ -857,7 +895,7 @@ span.icon img {
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="full blog_img_popular">
                                         <img class="img-responsive" src="/img/Sri_Vidyalaya_Pu_College_Students.png" alt="Professional Courses" />
-                                        <a href="courses_offered.html">
+                                        <a href="courses_offerred.html">
                                             <h5 class="rounded-h4">Academic and Professional Courses </h5>
                                         </a>
                                         <p style="text-align: justify;">
@@ -868,7 +906,7 @@ span.icon img {
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="full blog_img_popular">
                                         <img class="img-responsive" src="/img/Sri_Vidyalaya_Skill_Enhancement_Courses.jpg" alt="Skill Enhancement Programs" />
-                                        <a href="courses_offered.html">
+                                        <a href="courses_offerred.html">
                                             <h5 class="rounded-h4">Certifications and Skill Enhancement Courses</h5>
                                         </a>
                                         <p style="text-align: justify;">
@@ -996,7 +1034,7 @@ span.icon img {
                     <h5>Courses Offered</h5>
                    <ul>
                             <li><a href="/courses_offerred.html">Academic and Professional Courses</a></li>
-                            <li><a href=/courses_offerred.html">Certifications and Skill Enhancement Courses</a></li>
+                            <li><a href="/courses_offerred.html">Certifications and Skill Enhancement Courses</a></li>
                         </ul>
                     </div>
                 </div> 
@@ -1033,19 +1071,8 @@ span.icon img {
     <!-- End Copyright Content -->
 
     <!-- ALL JS FILES -->
-    <script src="js/jquery.min.js"></script>
-	<script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- ALL PLUGINS -->
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.pogo-slider.min.js"></script>
-    <script src="js/slider-index.js"></script>
-    <script src="js/smoothscroll.js"></script>
-    <script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-    <script src="js/isotope.min.js"></script>
-    <script src="js/images-loded.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
 	/* counter js */
 
@@ -1421,4 +1448,3 @@ document.getElementById("form").addEventListener("submit", async function(e){
 
 </body>
 </html>
-
