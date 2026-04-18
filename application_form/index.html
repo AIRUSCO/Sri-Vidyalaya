@@ -392,9 +392,6 @@ button {
         <select id="stream" required>
             <option value="">Select Stream</option>
             <option>Commerce - SEBA</option>
-            <option>Science - PCM</option>
-            <option>Science - PCB</option>
-            <option>Arts</option>
         </select>
         <span class="error-message" id="stream-error">Please select a stream</span>
     </div>
@@ -410,28 +407,7 @@ button {
     </div>
 </div>
 
-<div class="form-row">
-    <div class="form-group">
-        <label>Section <span class="required">*</span></label>
-        <select id="section" required>
-            <option value="">Select Section</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>D</option>
-        </select>
-        <span class="error-message" id="section-error">Please select section</span>
-    </div>
-    
-    <div class="form-group">
-        <label>Reservation Category</label>
-        <select id="reservation">
-            <option value="">Select Category</option>
-            <option>General</option>
-            <option>OBC</option>
-            <option>SC/ST</option>
-        </select>
-    </div>
+
 </div>
 
 <div class="buttons">
@@ -446,7 +422,7 @@ button {
 
 <div class="form-row full">
     <div class="form-group">
-        <label>Student Name (CAPITAL LETTERS ONLY) <span class="required">*</span></label>
+        <label>Student Name (CAPITAL LETTERS ONLY) (AS PER AADHAR CARD) <span class="required">*</span></label>
         <input type="text" id="studentName" placeholder="Enter full name in CAPITAL letters" pattern="[A-Z\s]+" required>
         <span class="error-message" id="studentName-error">Use CAPITAL letters only</span>
     </div>
@@ -914,6 +890,12 @@ button {
 <div class="step">
 <div class="form-title">Step 7: Review & Submit</div>
 
+<div style="background: #fff8e1; border-left: 4px solid #f0b429; padding: 16px; border-radius: 6px; margin-bottom: 20px; color: #5f4300;">
+    <h4 style="margin-bottom: 10px;">Final Instructions</h4>
+    <p style="margin-bottom: 8px; line-height: 1.6;">Please verify every detail before generating the final application PDF. The PDF will contain your admission information, selected courses, academic details, and the list of uploaded documents.</p>
+    <p style="line-height: 1.6;">After clicking the final button, the form data will not be sent to any online backend. A PDF copy will be generated on this device for submission to the college office.</p>
+</div>
+
 <div id="reviewSummary" style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
     <p style="text-align: center; color: #666;">Loading summary...</p>
 </div>
@@ -928,21 +910,21 @@ button {
 
 <div class="buttons">
     <button type="button" class="btn-secondary" onclick="prevStep()">← Back</button>
-    <button type="submit" class="btn-primary" id="submitBtn">Submit Application</button>
+    <button type="submit" class="btn-primary" id="submitBtn">Generate Final PDF</button>
 </div>
 </div>
 
 </form>
 
 <div class="success-message" id="successMessage">
-    ✓ Application submitted successfully!<br>
+    ✓ Application PDF generated successfully!<br>
     Your Admission Number: <strong id="admissionResult"></strong><br>
-    We will contact you soon.
+    Keep the downloaded PDF for college submission.
 </div>
 
 <div class="loading" id="loading">
     <div class="spinner"></div>
-    <p>Processing your application...</p>
+    <p>Generating your application PDF...</p>
 </div>
 
 </div>
