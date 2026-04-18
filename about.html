@@ -52,6 +52,277 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style>
+        .core-values-section .card-container {
+            row-gap: 24px;
+        }
+
+        .core-values-section .col-md-3 {
+            display: flex;
+        }
+
+        .core-values-section .value-card {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 24px 20px;
+            border: 1px solid #e6e6e6;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .core-values-section .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        .core-values-section .value-card p {
+            margin: 0;
+            color: #2d2d2d;
+            line-height: 1.65;
+        }
+
+        .core-values-section .value-card strong {
+            display: inline-block;
+            margin-bottom: 8px;
+            font-size: 20px;
+            color: #1d3d80;
+        }
+
+        @media (max-width: 767px) {
+            .core-values-section .value-card {
+                padding: 20px 16px;
+            }
+
+            .core-values-section .value-card strong {
+                font-size: 18px;
+            }
+        }
+     .ethos-section {
+    width: 100%;
+}
+
+.ethos-section .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ethos-section .heading_main {
+    text-align: center;
+}
+
+.ethos-section .ethos-strip-list {
+    width: 100%;
+    max-width: 1200px;
+    margin: 18px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ethos-section .ethos-strip {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    text-align: left;
+    line-height: 1.65;
+    color: #1f1f1f;
+}
+
+@media (max-width: 767px) {
+    .ethos-section .container,
+    .ethos-section .ethos-strip-list {
+        max-width: 100%;
+    }
+
+    .ethos-section .ethos-strip {
+        padding: 12px;
+    }
+}
+
+.goals-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.goals-section .goals-top {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.goals-section .goals-intro,
+.goals-section .goals-summary {
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.75;
+}
+
+.goals-section .goals-subtitle {
+    margin: 20px 0 0;
+    font-weight: 700;
+    color: #1f1f1f;
+}
+
+.goals-section .goals-card-list {
+    max-width: 900px;
+    margin: 28px auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.goals-section .goal-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #d7e6ff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-align: left;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.goals-section .goal-card::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 42px;
+    height: 42px;
+  
+  
+    border-top-left-radius: 12px;
+}
+
+.goals-section .goal-card p {
+    margin: 0;
+    color: #1f1f1f;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.goals-section .goals-summary {
+    margin-top: 24px;
+}
+
+@media (max-width: 767px) {
+    .goals-section .goals-card-list {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        gap: 12px;
+    }
+
+    .goals-section .goal-card {
+        padding: 14px 16px;
+    }
+}
+.about-courses-section {
+    padding-bottom: 40px;
+}
+
+.about-courses-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-courses-section .about-courses-row {
+    align-items: flex-start;
+    row-gap: 28px;
+}
+
+.about-courses-section .about-courses-heading {
+    margin-bottom: 10px;
+}
+
+.about-courses-section .about-courses-heading h3 {
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.about-courses-section .about-courses-text p,
+.about-courses-section .about-courses-wide p {
+    margin-bottom: 14px;
+    line-height: 1.8;
+}
+
+.about-courses-section .about-courses-image-wrap {
+    width: 100%;
+    text-align: right;
+}
+
+.about-courses-section .Sri_Vidyalaya_About_Our_Courses-img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.about-courses-section .about-courses-wide {
+    max-width: 1200px;
+    margin: 18px auto 0;
+}
+
+.about-courses-section .learn-more-wrap {
+    margin-top: 16px;
+    margin-bottom: 50px;
+}
+
+.footer-box .col-lg-3:first-child .footer_blog,
+.footer-box .col-md-6:first-child .footer_blog,
+.footer-box .col-sm-6:first-child .footer_blog {
+    padding-left: 0;
+}
+
+.footer-box .col-lg-3:first-child .margin-bottom_30,
+.footer-box .col-md-6:first-child .margin-bottom_30,
+.footer-box .col-sm-6:first-child .margin-bottom_30 {
+    margin-left: 0;
+}
+
+.footer-box .col-lg-3:first-child .logo,
+.footer-box .col-md-6:first-child .logo,
+.footer-box .col-sm-6:first-child .logo {
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+@media (max-width: 991px) {
+    .about-courses-section {
+        padding-bottom: 24px;
+    }
+
+    .about-courses-section .about-courses-image-wrap {
+        text-align: center;
+    }
+
+    .about-courses-section .Sri_Vidyalaya_About_Our_Courses-img {
+        max-width: 100%;
+    }
+
+    .about-courses-section .learn-more-wrap {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .footer-box .col-lg-3:first-child .logo,
+    .footer-box .col-md-6:first-child .logo,
+    .footer-box .col-sm-6:first-child .logo {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+    </style>
+
 </head>
 
 <body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
@@ -236,7 +507,7 @@
     </div>
 </div>
     <!-- start section -->
-<div class="section layout_padding_2 service-detail-section section-tone-b">
+<div class="section layout_padding_2 service-detail-section section-tone-b core-values-section">
     <div class="container">
         
         <div class="row text_align_center">
@@ -301,78 +572,96 @@
         </div>
     </div>
 </div>
-    <div class="section layout_padding_2">
+<div class="section layout_padding_2 ethos-section">
+    <div class="container">
         <div class="full text_align_center">
             <div class="heading_main text_align_center">
                 <h3>ETHOS</h3>
             </div>
-            <p>• At Sri Vidyalaya PU College, our ethos is rooted in a harmonious blend of modern commerce education and timeless Indian wisdom. As the First AI PU Commerce College in Shivamogga, we believe that true education goes beyond academic success and plays a vital role in building a meaningful and responsible society.</p>
-            <p>• Inspired by ancient knowledge systems that shaped economic thought and governance, we introduce students to values that guide ethical decision-making and sustainable growth.</p>
-            <p>• <strong>“अर्थस्य मूलं धर्मः” </strong>(Kautilya – Arthashastra)
-               Wealth and economic progress must be rooted in righteousness.</p>
-            <p>• <strong>“संयमेन संपदः वृद्धिः”</strong>
+            <div class="ethos-strip-list">
+                <p class="ethos-strip">At Sri Vidyalaya PU College, our ethos is rooted in a harmonious blend of modern commerce education and timeless Indian wisdom. As the First AI PU Commerce College in Shivamogga, we believe that true education goes beyond academic success and plays a vital role in building a meaningful and responsible society.</p>
+
+                <p class="ethos-strip">Inspired by ancient knowledge systems that shaped economic thought and governance, we introduce students to values that guide ethical decision-making and sustainable growth.</p>
+
+                <p class="ethos-strip"><strong>“अर्थस्य मूलं धर्मः” </strong>(Kautilya – Arthashastra)<br>
+                Wealth and economic progress must be rooted in righteousness.</p>
+
+                <p class="ethos-strip"><strong>“संयमेन संपदः वृद्धिः”</strong><br>
                 Discipline increases wealth.</p>
-            <p>• Through these principles, students understand that economics and commerce are not just about profit, but about responsibility, balance, and societal impact. We encourage learners to develop strong analytical abilities, ethical judgment, and a long-term vision in financial and economic decision-making.</p>
-            <P>• Our approach integrates AI-enabled learning, digital platforms, and practical training with value-based education, enabling students to become thoughtful economists, responsible professionals, and future leaders.</P>
-            <P>• Beyond academics, we focus on nurturing individuals who contribute to economic development, promote ethical business practices, and help build a progressive and meaningful society.</P>
+
+                <p class="ethos-strip">Through these principles, students understand that economics and commerce are not just about profit, but about responsibility, balance, and societal impact. We encourage learners to develop strong analytical abilities, ethical judgment, and a long-term vision in financial and economic decision-making.</p>
+
+                <p class="ethos-strip">Our approach integrates AI-enabled learning, digital platforms, and practical training with value-based education, enabling students to become thoughtful economists, responsible professionals, and future leaders.</p>
+
+                <p class="ethos-strip">Beyond academics, we focus on nurturing individuals who contribute to economic development, promote ethical business practices, and help build a progressive and meaningful society.</p>
+            </div>
         </div>
     </div>
-
-
-<div class="section layout_padding_2">
-        <div class="full text_align_center">
+</div>
+<div class="section layout_padding_2 goals-section">
+    <div class="container">
+        <div class="goals-top text_align_center">
             <div class="heading_main text_align_center">
                 <h3>GOALS</h3>
             </div>
-            <p>At Sri Vidyalaya PU College, we are committed to building a strong foundation for future commerce professionals and leaders. 
-              As the First AI PU Commerce College in Shivamogga, our goal is not only academic excellence but also creating individuals who contribute meaningfully to the economy and society.</p>
-            
-            <div>
-            <h5>Over the next 10 years, we aim to nurture and develop:</h5>
-            <p>• 5 Kautilya-inspired strategic thinkers </p>
-            <p>• 50 Chartered Accountants (CA) </p>
-            <p>• 75 Economists .</p>
-            <p>• 90 Actuarial Science Professionals </p>
-            <P>• 100 Company Secretaries (CS) </P>
-            <P>• 1000 Entrepreneurs </P>
-            </div>
-           <P>These goals reflect our commitment to going beyond traditional education by focusing on analytical thinking, career readiness, ethical values, and innovation. We strive to create a generation of professionals who are skilled, responsible, and capable of leading in the evolving global economy.</P>
+
+            <p class="goals-intro">
+                At Sri Vidyalaya PU College, we are committed to building a strong foundation for future commerce professionals and leaders. As the First AI PU Commerce College in Shivamogga, our goal is not only academic excellence but also creating individuals who contribute meaningfully to the economy and society.
+            </p>
+
+            <h5 class="goals-subtitle">OVER THE NEXT 10 YEARS, WE AIM TO NURTURE AND DEVELOP:</h5>
         </div>
+
+        <div class="goals-card-list">
+            <div class="goal-card"><p>5 Kautilya-inspired strategic thinkers</p></div>
+            <div class="goal-card"><p>50 Chartered Accountants (CA)</p></div>
+            <div class="goal-card"><p>75 Economists</p></div>
+            <div class="goal-card"><p>90 Actuarial Science Professionals</p></div>
+            <div class="goal-card"><p>100 Company Secretaries (CS)</p></div>
+            <div class="goal-card"><p>1000 Entrepreneurs</p></div>
+        </div>
+
+        <p class="goals-summary text_align_center">
+            These goals reflect our commitment to going beyond traditional education by focusing on analytical thinking, career readiness, ethical values, and innovation. We strive to create a generation of professionals who are skilled, responsible, and capable of leading in the evolving global economy.
+        </p>
     </div>
-
-
-    <!-- end section -->
+</div>
 	<!-- start section -->
-	<div class="section layout_padding_2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="full">
-                        <div class="heading_main text_align_left">
-						<h3>About Our Courses</h3>
-                        </div>
-						<div class="full">
-						<p>Sri Vidyalaya PU College offers specialized Commerce education designed to build a strong academic foundation and prepare students for future professional careers. Our program focuses on core subjects such as Accountancy, Economics, Business Studies, and Statistics, ensuring students gain both theoretical knowledge and practical understanding.</p>
-						<p>We provide structured coaching for SEBA (Statistics, Economics, Business Studies, Accountancy) with a strong emphasis on analytical and quantitative skills. In addition, we guide students toward higher education and professional paths such as CA, CS, B.Com, and BBA.</p>
-						<p>Special focus is given to emerging and high-potential career fields like Actuarial Science, which involves using mathematics and statistics to analyze risk and make financial decisions. This field requires strong analytical thinking and offers excellent global career opportunities.</p>
-						<p>Through focused guidance, skill development, and career awareness, we prepare students to confidently pursue advanced studies and succeed in competitive, future-oriented professions.</p>
-						</div>
-						<div class="full">
-							<a class="hvr-radial-out button-theme" href="services.html">Learn more</a>
-						</div>
-                    </div>
+<div class="section layout_padding_2 about-courses-section">
+    <div class="container">
+        <div class="row about-courses-row">
+            <div class="col-md-6 about-courses-text-col">
+                <div class="heading_main text_align_left about-courses-heading">
+                    <h3>About Our Courses</h3>
                 </div>
-				<div class="col-md-6">
-                    <div class="full">
-                        <img src="img/About-US/Sri_Vidyalaya_About_Our_Courses.png" alt="Sri Vidyalaya PU College About Our Courses" class="Sri_Vidyalaya_About_Our_Courses-img" />
-                    </div>
+
+                <div class="about-courses-text">
+                    <p>Sri Vidyalaya PU College offers specialized Commerce education designed to build a strong academic foundation and prepare students for future professional careers. Our program focuses on core subjects such as Accountancy, Economics, Business Studies, and Statistics, ensuring students gain both theoretical knowledge and practical understanding.</p>
+
+                    <p>We provide structured coaching for SEBA (Statistics, Economics, Business Studies, Accountancy) with a strong emphasis on analytical and quantitative skills. In addition, we guide students toward higher education and professional paths such as CA, CS, B.Com, and BBA.</p>
                 </div>
-                </div>
+            </div>
+
+            <div class="col-md-6 about-courses-image-col">
+                <div class="about-courses-image-wrap">
+                    <img src="img/About-US/Sri_Vidyalaya_About_Our_Courses.png" alt="Sri Vidyalaya PU College About Our Courses" class="Sri_Vidyalaya_About_Our_Courses-img">
                 </div>
             </div>
         </div>
+
+        <div class="about-courses-wide">
+            <p>Special focus is given to emerging and high-potential career fields like Actuarial Science, which involves using mathematics and statistics to analyze risk and make financial decisions. This field requires strong analytical thinking and offers excellent global career opportunities.</p>
+
+            <p>Through focused guidance, skill development, and career awareness, we prepare students to confidently pursue advanced studies and succeed in competitive, future-oriented professions.</p>
+
+            <div class="learn-more-wrap">
+                <a class="hvr-radial-out button-theme" href="services.html">Learn more</a>
+            </div>
+        </div>
     </div>
-	<!-- end section -->
+</div>
+<!-- end section -->
+
     <!-- Start Footer -->
     <footer class="footer-box">
         <div class="container">

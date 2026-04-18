@@ -136,6 +136,83 @@
                 aspect-ratio: 4 / 3;
             }
         }
+
+        .section-shell {
+            background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+            border: 1px solid #e1ebfb;
+            border-radius: 22px;
+            padding: 34px;
+            box-shadow: 0 16px 34px rgba(20, 44, 88, 0.08);
+        }
+
+        .section-shell .heading_main h3 {
+            margin-bottom: 12px;
+        }
+
+        .section-shell p:last-child,
+        .section-shell ul:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border: 1px solid #dbe7fb;
+            border-radius: 18px;
+            padding: 24px;
+            height: 100%;
+            box-shadow: 0 10px 24px rgba(20, 44, 88, 0.06);
+        }
+
+        .service-card h4 {
+            margin-bottom: 14px;
+            color: #183b74;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .academic-core-section .service-panel-grid,
+        .certification-section .service-panel-grid {
+            row-gap: 22px;
+        }
+
+        .academic-core-section .service-card--accent,
+        .certification-section .service-card--accent {
+            border-top: 4px solid #2f5f9f;
+        }
+
+        .academic-core-section .list-unstyled li,
+        .certification-section .list-unstyled li,
+        .academic-support-section .list-unstyled li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eef3fb;
+            margin-bottom: 0;
+        }
+
+        .academic-core-section .list-unstyled li:last-child,
+        .certification-section .list-unstyled li:last-child,
+        .academic-support-section .list-unstyled li:last-child {
+            border-bottom: 0;
+        }
+
+        .academic-support-section .support-grid {
+            row-gap: 22px;
+        }
+
+        .academic-support-section .service-card {
+            border-top: 4px solid #2f5f9f;
+        }
+
+        .certification-section .stacked-card-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        @media (max-width: 991px) {
+            .section-shell,
+            .service-card {
+                padding: 22px;
+            }
+        }
     </style>
 
     <!--[if lt IE 9]>
@@ -211,15 +288,16 @@
         </div>
     </div>
 
-    <div class="section layout_padding_2 service-section">
+    <div class="section layout_padding_2 service-section academic-core-section">
         <div class="container">
-            <div class="row align-items-stretch content-image-row">
-                <div class="col-md-6">
-                    <div class="full">
+            <div class="section-shell">
+                <div class="row service-panel-grid align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="service-card service-card--accent">
                         <div class="heading_main text_align_left">
-                            <h3>PU COMMERCE – SEBA (CORE PROGRAM)</h3>
+                            <h3>ACADEMIC and Professional Courses – SEBA (CORE PROGRAM)</h3>
                         </div>
-                        <div class="full">
+                        <div>
                             <p><strong>Subjects Offered:</strong></p>
                             <ul class="list-unstyled">
                                 <li>• Statistics – Develops analytical thinking and data interpretation skills</li>
@@ -231,28 +309,29 @@
                     </div>
                 </div>
                 <div class="col-md-6 d-flex">
-                    <div class="full">
+                    <div class="service-card service-card--accent">
                         <div class="heading_main text_align_left">
                             <h3>Program Overview</h3>
                         </div>
-                        <div class="full">
+                        <div>
                             <p>The SEBA combination is one of the most powerful Commerce streams, designed to build a strong base in finance, business, and analytics. It equips students with both theoretical knowledge and practical understanding, making it ideal for students who aim to pursue professional and business-oriented careers.</p>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
 
-    <div class="section layout_padding_2 service-section">
+    <div class="section layout_padding_2 service-section academic-support-section">
         <div class="container">
-            <div class="row align-items-stretch content-image-row">
+            <div class="row support-grid align-items-stretch">
                 <div class="col-md-6 d-flex">
-                    <div class="full">
+                    <div class="service-card">
                         <div class="heading_main text_align_left">
                             <h3>Key Learning Outcomes</h3>
                         </div>
-                        <div class="full">
+                        <div>
                             <ul class="list-unstyled">
                                 <li>• Strong analytical and logical thinking ability</li>
                                 <li>• Financial literacy and accounting expertise</li>
@@ -263,11 +342,11 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="full">
+                    <div class="service-card">
                         <div class="heading_main text_align_left">
                             <h3>Teaching Methodology</h3>
                         </div>
-                        <div class="full">
+                        <div>
                             <ul class="list-unstyled">
                                 <li>• Concept-based learning for deep understanding</li>
                                 <li>• AI-enabled learning support and smart classroom environment</li>
@@ -284,18 +363,19 @@
         </div>
     </div>
 
-    <div class="section layout_padding_2 service-section">
+    <div class="section layout_padding_2 service-section certification-section">
         <div class="container">
-            <div class="row align-items-stretch content-image-row">
-                <div class="col-md-6">
-                    <div class="full">
+            <div class="section-shell">
+                <div class="row service-panel-grid align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="service-card service-card--accent">
                         <div class="heading_main text_align_left">
                             <h3>CERTIFICATION & SKILL DEVELOPMENT</h3>
                         </div>
-                        <div class="full">
+                        <div>
                             <p>Inspired by leading institutions like NM College, we provide industry-relevant skill training alongside academics, giving students a strong advantage in finance, taxation, accounting, and technology.</p>
                         </div>
-                        <div class="full">
+                        <div>
                             <h4>Accounting & Finance Training</h4>
                             <ul class="list-unstyled">
                                 <li>• Tally (Official Certification)</li>
@@ -308,15 +388,15 @@
                     </div>
                 </div>
                 <div class="col-md-6 d-flex">
-                    <div class="full">
-                        <div class="full">
+                    <div class="stacked-card-grid w-100">
+                        <div class="service-card service-card--accent">
                             <h4>Professional Course Foundation</h4>
                             <ul class="list-unstyled">
                                 <li>• CA Basics (Introduction to Chartered Accountancy)</li>
                                 <li>• CA Foundation Level Preparation</li>
                             </ul>
                         </div>
-                        <div class="full">
+                        <div class="service-card service-card--accent">
                             <h4>Technology & Data Skills</h4>
                             <ul class="list-unstyled">
                                 <li>• Microsoft Excel (Basic to Advanced)</li>
@@ -324,7 +404,7 @@
                                 <li>• Google Sheets for real-time collaboration</li>
                             </ul>
                         </div>
-                        <div class="full">
+                        <div class="service-card service-card--accent">
                             <h4>Modern Accounting Tools</h4>
                             <ul class="list-unstyled">
                                 <li>• Zoho Books (Cloud Accounting Software)</li>
@@ -333,6 +413,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
