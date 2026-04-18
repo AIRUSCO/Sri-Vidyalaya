@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
 
@@ -52,6 +52,277 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style>
+        .core-values-section .card-container {
+            row-gap: 24px;
+        }
+
+        .core-values-section .col-md-3 {
+            display: flex;
+        }
+
+        .core-values-section .value-card {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 24px 20px;
+            border: 1px solid #e6e6e6;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .core-values-section .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        .core-values-section .value-card p {
+            margin: 0;
+            color: #2d2d2d;
+            line-height: 1.65;
+        }
+
+        .core-values-section .value-card strong {
+            display: inline-block;
+            margin-bottom: 8px;
+            font-size: 20px;
+            color: #1d3d80;
+        }
+
+        @media (max-width: 767px) {
+            .core-values-section .value-card {
+                padding: 20px 16px;
+            }
+
+            .core-values-section .value-card strong {
+                font-size: 18px;
+            }
+        }
+     .ethos-section {
+    width: 100%;
+}
+
+.ethos-section .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ethos-section .heading_main {
+    text-align: center;
+}
+
+.ethos-section .ethos-strip-list {
+    width: 100%;
+    max-width: 1200px;
+    margin: 18px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ethos-section .ethos-strip {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    text-align: left;
+    line-height: 1.65;
+    color: #1f1f1f;
+}
+
+@media (max-width: 767px) {
+    .ethos-section .container,
+    .ethos-section .ethos-strip-list {
+        max-width: 100%;
+    }
+
+    .ethos-section .ethos-strip {
+        padding: 12px;
+    }
+}
+
+.goals-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.goals-section .goals-top {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.goals-section .goals-intro,
+.goals-section .goals-summary {
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.75;
+}
+
+.goals-section .goals-subtitle {
+    margin: 20px 0 0;
+    font-weight: 700;
+    color: #1f1f1f;
+}
+
+.goals-section .goals-card-list {
+    max-width: 900px;
+    margin: 28px auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.goals-section .goal-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #d7e6ff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-align: left;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.goals-section .goal-card::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 42px;
+    height: 42px;
+  
+  
+    border-top-left-radius: 12px;
+}
+
+.goals-section .goal-card p {
+    margin: 0;
+    color: #1f1f1f;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.goals-section .goals-summary {
+    margin-top: 24px;
+}
+
+@media (max-width: 767px) {
+    .goals-section .goals-card-list {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        gap: 12px;
+    }
+
+    .goals-section .goal-card {
+        padding: 14px 16px;
+    }
+}
+.about-courses-section {
+    padding-bottom: 40px;
+}
+
+.about-courses-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-courses-section .about-courses-row {
+    align-items: flex-start;
+    row-gap: 28px;
+}
+
+.about-courses-section .about-courses-heading {
+    margin-bottom: 10px;
+}
+
+.about-courses-section .about-courses-heading h3 {
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.about-courses-section .about-courses-text p,
+.about-courses-section .about-courses-wide p {
+    margin-bottom: 14px;
+    line-height: 1.8;
+}
+
+.about-courses-section .about-courses-image-wrap {
+    width: 100%;
+    text-align: right;
+}
+
+.about-courses-section .Sri_Vidyalaya_About_Our_Courses-img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.about-courses-section .about-courses-wide {
+    max-width: 1200px;
+    margin: 18px auto 0;
+}
+
+.about-courses-section .learn-more-wrap {
+    margin-top: 16px;
+    margin-bottom: 50px;
+}
+
+.footer-box .col-lg-3:first-child .footer_blog,
+.footer-box .col-md-6:first-child .footer_blog,
+.footer-box .col-sm-6:first-child .footer_blog {
+    padding-left: 0;
+}
+
+.footer-box .col-lg-3:first-child .margin-bottom_30,
+.footer-box .col-md-6:first-child .margin-bottom_30,
+.footer-box .col-sm-6:first-child .margin-bottom_30 {
+    margin-left: 0;
+}
+
+.footer-box .col-lg-3:first-child .logo,
+.footer-box .col-md-6:first-child .logo,
+.footer-box .col-sm-6:first-child .logo {
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+@media (max-width: 991px) {
+    .about-courses-section {
+        padding-bottom: 24px;
+    }
+
+    .about-courses-section .about-courses-image-wrap {
+        text-align: center;
+    }
+
+    .about-courses-section .Sri_Vidyalaya_About_Our_Courses-img {
+        max-width: 100%;
+    }
+
+    .about-courses-section .learn-more-wrap {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .footer-box .col-lg-3:first-child .logo,
+    .footer-box .col-md-6:first-child .logo,
+    .footer-box .col-sm-6:first-child .logo {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+    </style>
+
 </head>
 
 <body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
@@ -65,7 +336,7 @@
         <nav class="first-nav_contact">
             <div class="left">
                 <ul>
-                    <li><a href="mailto:Srividyalaya26@gmail.com"><span class="first-nav_contact-icon img" id="first"><img src="/img/icons/email_sealed_icon_fill_white.png" alt="Sri Vidyalaya Email Address"></span><span>Srividyalaya26@gmail.com</span></a></li>
+                    <li><a href="mailto:ASK@svpucollege.org"><span class="first-nav_contact-icon img" id="first"><img src="/img/icons/email_sealed_icon_fill_white.png" alt="Sri Vidyalaya Email Address"></span><span>ASK@svpucollege.org</span></a></li>
                     <li><a href="tel:8088449499"><span class="first-nav_contact-icon follow"><img src="/img/icons/landline_icon_fill_white.png" alt="Sri Vidyalaya Phone Number"></span><span>8088449499</span></a></li>
                 </ul>
             </div>
@@ -73,7 +344,7 @@
                 <ul>
                     <li><a href="https://wa.me/918088449499" target="_blank"><span class="first-nav_contact-icon"><img src="/img/socials/whatsapp_icon_white.svg" alt="Sri Vidyalaya WhatsApp Contact"></span></a></li>
                     <li><a href="https://www.instagram.com/sri_vidyalaya?igsh=MTQyMm5qaG1ocG15MQ==" target="_blank"><span class="first-nav_contact-icon"><img src="/img/socials/ig_icon_white.svg" alt="Sri Vidyalaya PU College Instagram Page"></span></a></li>
-                    <li><a href="https://www.facebook.com/people/KV-Greens/61581026396549/" target="_blank"><span class="first-nav_contact-icon"><img src="/img/socials/fb_icon_white.svg" alt="Sri Vidyalaya PU College Facebook Page"></span></a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=61572080166512" target="_blank"><span class="first-nav_contact-icon"><img src="/img/socials/fb_icon_white.svg" alt="Sri Vidyalaya PU College Facebook Page"></span></a></li>
                     <li><a href="https://www.linkedin.com/in/sri-vidyalaya-95a640403?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><span class="first-nav_contact-icon"><img src="/img/socials/linkedin_icon_white.svg" alt="Sri Vidyalaya PU College LinkedIn Page"></span></a></li>
                 </ul>
             </div>
@@ -90,7 +361,7 @@
                     <ul class="navbar-nav">
                          <li><a class="nav-link active" href="index.html">Home</a></li>
                             <li><a class="nav-link" href="about.html">About</a></li>
-                            <li><a class="nav-link" href="services.html">Services</a></li>
+                            <li><a class="nav-link" href="courses_offerred.html">Our Courses</a></li>
                             <li><a class="nav-link" href="contact.html">Contact</a></li>
                         </ul>
                      </ul>
@@ -117,88 +388,280 @@
 		<p>What makes Sri Vidyalaya PU College a trusted choice for Commerce education in Shivamogga?</p>
 	</div>
 	<!-- end section -->
-	<!-- start section -->
-    <div class="section layout_padding_2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="full">
-                        <div class="heading_main text_align_left">
-						<h3>About Sri Vidyalaya PU College</h3>
-                        </div>
-						<div class="full">
-						<p>Sri Vidyalaya Pre-University College, Shivamogga is a reputed institution dedicated to providing quality Commerce education with a strong focus on academic excellence and overall student development. Established under the guidance of Sri Vidyalaya Educational Trust, the college has built a trusted name among students and parents in Shivamogga.</p>
+<!-- start section -->
+<div class="section layout_padding_2">
+    <div class="container">
 
-						<p>With a commitment to nurturing young minds, we create an environment where students are encouraged to learn, grow, and achieve their goals. Our approach combines academic strength with personal development, ensuring students are well-prepared for higher education and future careers.</p>
+        <div class="heading_main text_align_left">
+            <h3>About Sri Vidyalaya PU College</h3>
+        </div>
 
-                        <p>Our vision is to become one of the leading Commerce PU colleges in Shivamogga by delivering high-quality education and shaping responsible, confident, and skilled individuals. Our mission is to provide a strong academic foundation while promoting discipline, leadership, and ethical values.</p>
-						</div>
-                    </div>
+        <!-- FIRST ROW (50% + IMAGE) -->
+        <div class="row align-items-center">
+
+            <!-- LEFT: FIRST PARAGRAPH -->
+            <div class="col-md-6">
+                <p>
+                    Sri Vidyalaya Pre-University College, Shivamogga is a reputed institution dedicated to delivering high-quality Commerce education with a strong focus on academic excellence and overall student development. Established in 2014–15 under the guidance of Sri Vidyalaya Educational Trust, the college has built a trusted name among students and parents in Shivamogga.
+                </p>
+                  <p>
+                As the First AI PU Commerce College in Shivamogga, Sri Vidyalaya PU College adopts an AI-first approach to modern education by integrating artificial intelligence into teaching, learning, and academic processes. This innovative approach enables students to develop future-ready skills, analytical thinking, and digital literacy aligned with evolving global education standards.
+            </p>
+
+            </div>
+
+            <!-- RIGHT: IMAGE -->
+            <div class="col-md-6">
+                <img src="img/Sri_Vidyalaya_College_Building_Image.png"
+                     alt="Sri Vidyalaya PU College building"
+                     class="why-img about-building-img img-fluid"/>
+            </div>
+
+        </div>
+
+        <!-- FULL WIDTH CONTENT (THIS IS YOUR REQUIREMENT) -->
+        <div class="full-content">
+
+          
+            <p>
+                Our institution provides a disciplined and supportive learning environment where students are encouraged to learn, grow, and achieve their goals. We combine strong academic foundations in core Commerce subjects—Accountancy, Economics, Business Studies, and Statistics—with personality development, communication skills, and leadership training to ensure holistic growth.
+            </p>
+
+            <p>
+                The college ensures that AI integration enhances the prescribed PU curriculum without deviation, maintaining academic standards while adopting modern, technology-driven teaching methodologies. We are committed to gradually evolving into a digitally empowered campus with AI-supported academic processes that ensure quality education and future readiness.
+            </p>
+
+            <p>
+                With a vision to become one of the leading Commerce PU colleges in Shivamogga, we aim to shape confident, responsible, and skilled individuals. Our mission focuses on building strong academic foundations while promoting discipline, ethical values, and career-oriented development, preparing students for professional courses such as CA, CS, Actuarial Science, and higher education in commerce and business.
+            </p>
+
+        </div>
+
+    </div>
+</div>
+ <div class="section layout_padding_2">
+    <div class="container text_align_center">
+
+        <div class="heading_main text_align_center">
+            <h3>OUR VISION</h3>
+        </div>
+
+        <div class="vision-content">
+            <p>• To lead the transformation of commerce education as the First AI PU Commerce College in Shivamogga, delivering excellence through innovative, technology-driven learning and strong academic foundations.</p>
+
+            <p>• To educate, enlighten, and empower students through formal and informal learning, providing quality commerce education that adapts to the changing global economic environment.</p>
+
+            <p>• We aim to empower students with advanced knowledge, digital skills, and analytical thinking required for the future economy, while nurturing disciplined, ethical, and forward-thinking individuals who contribute meaningfully to economic growth and society.</p>
+        </div>
+
+    </div>
+</div>
+    <div class="section layout_padding_2 service-detail-section section-tone-b">
+    <div class="container">
+        <div class="row text_align_center">
+
+            <div class="col-md-12">
+                <div class="heading_main text_align_center">
+                    <h3>OUR MISSION</h3>
                 </div>
-				<div class="col-md-6">
-                    <div class="full">
-                        <img src="img/Sri_Vidyalaya_College_Building_Image.png" alt="Sri Vidyalaya PU College building" class="why-img about-building-img" />
-                    </div>
+            </div>
+
+            <!-- GRID WRAPPER -->
+            <div class="mission-grid">
+
+                <div class="mission-card">
+                    <p>To deliver high-quality Commerce education through AI-enabled learning, smart classroom technology, digital platforms, and Google Classroom integration, creating an engaging and future-ready learning environment.</p>
+                </div>
+
+                <div class="mission-card">
+                    <p>To build strong academic foundations in Accountancy, Economics, Business Studies, and Statistics with a focus on conceptual clarity and practical understanding.</p>
+                </div>
+
+                <div class="mission-card">
+                    <p>To go beyond traditional education by combining AI-driven learning with personality development, communication skills, leadership training, and hands-on practical exposure, enabling students to become confident, industry-ready professionals.</p>
+                </div>
+
+                <div class="mission-card">
+                    <p>To develop analytical, financial, and decision-making skills required for success in the future economy.</p>
+                </div>
+
+                <div class="mission-card">
+                    <p>To provide structured career guidance for professional pathways such as Chartered Accountancy (CA), Company Secretary (CS), Economics, Actuarial Science, and Entrepreneurship.</p>
+                </div>
+
+                <div class="mission-card">
+                    <p>To create a disciplined, student-centric environment that encourages continuous learning, performance improvement, and personal growth.</p>
+                </div>
+
+                <div class="mission-card">
+                    <p>To nurture ethical, responsible, and forward-thinking individuals who contribute meaningfully to society and economic development.</p>
+                </div>
+
+                <div class="mission-card">
+                    <p>To continuously reinterpret our goals and objectives in response to global economic and technological advancements, ensuring relevance to the evolving needs of society.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+    <!-- start section -->
+<div class="section layout_padding_2 service-detail-section section-tone-b core-values-section">
+    <div class="container">
+        
+        <div class="row text_align_center">
+            <div class="col-md-12">
+                <div class="heading_main text_align_center">
+                    <h2>CORE VALUES</h2>
                 </div>
             </div>
         </div>
-    </div>
-	<!-- start section -->
-	<!-- start section -->
-    <div class="section layout_padding_2">
-        <div class="container">
-            <div class="row align-items-stretch why-section about-why-row">
-			<div class="col-md-6 d-flex about-why-col-img">
-                <div class="full">
-                    <!-- Image removed -->
+
+        <div class="row card-container">
+
+            <div class="col-md-3">
+                <div class="value-card">
+                    <p><strong>Integrity</strong><br>
+                    We uphold honesty, ethics, and transparency in all academic and personal conduct.</p>
                 </div>
             </div>
-                <div class="col-md-6 d-flex about-why-col-text">
-                    <div class="full why-content">
-                        <div class="heading_main text_align_left">
-						<h3>Why Sri Vidyalaya PU College?</h3>
-                        </div>
-						<div class="full">
-                            <p>
-                                Sri Vidyalaya PU College stands out as one of the best Commerce PU colleges in Shivamogga due to its student-focused approach and consistent academic performance. Our experienced faculty members use interactive teaching methods, regular assessments, and individual mentoring to ensure every student achieves their full potential.
-                            </p>
-                            <p>
-                                In addition to academics, we encourage participation in seminars, workshops, cultural programs, and sports activities. This balanced approach helps students develop confidence, communication skills, teamwork, and leadership qualities, preparing them for real-world challenges.
-                            </p>
-						</div>
-                    </div>
+
+            <div class="col-md-3">
+                <div class="value-card">
+                    <p><strong>Excellence</strong><br>
+                    We strive for the highest standards in education, encouraging continuous learning and academic achievement.</p>
                 </div>
-			</div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="value-card">
+                    <p><strong>Discipline</strong><br>
+                    We maintain a structured and focused environment that builds responsibility and commitment.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="value-card">
+                    <p><strong>Student-Centric Approach</strong><br>
+                    We provide individual attention, mentoring, and support for overall student development.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="value-card">
+                    <p><strong>Innovation</strong><br>
+                    As the First AI PU Commerce College in Shivamogga, we promote technology-driven learning and forward-thinking approaches.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="value-card">
+                    <p><strong>Responsibility</strong><br>
+                    We encourage students to act responsibly and contribute positively to society and economic development.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="value-card">
+                    <p><strong>Leadership & Growth</strong><br>
+                    We inspire confidence, leadership qualities, and a mindset of continuous growth.</p>
+                </div>
+            </div>
+
         </div>
     </div>
-	<!-- end section -->
-	<!-- start section -->
-	<div class="section layout_padding_2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="full">
-                        <div class="heading_main text_align_left">
-						<h3>About Our Courses</h3>
-                        </div>
-						<div class="full">
-						<p>At Sri Vidyalaya PU College, we offer specialized Commerce courses designed to build a strong academic foundation and prepare students for future professional careers. Our programs focus on core subjects such as Accountancy, Economics, Business Studies, and Statistics, ensuring students gain both theoretical knowledge and practical understanding.</p>
-						<p>We provide structured coaching for courses like CEBA (Computer Science, Economics, Business Studies, Accountancy) and SEBA (Statistics, Economics, Business Studies, Accountancy). In addition, we guide students toward higher education and professional paths such as CA, CS, B.Com, and BBA, helping them make informed career decisions with confidence.</p>
-						</div>
-						<div class="full">
-							<a class="hvr-radial-out button-theme" href="services.html">Learn more</a>
-						</div>
-                    </div>
-                </div>
-				<div class="col-md-6">
-                    <div class="full">
-                        <!-- Image removed -->
-                    </div>
-                </div>
+</div>
+<div class="section layout_padding_2 ethos-section">
+    <div class="container">
+        <div class="full text_align_center">
+            <div class="heading_main text_align_center">
+                <h3>ETHOS</h3>
+            </div>
+            <div class="ethos-strip-list">
+                <p class="ethos-strip">At Sri Vidyalaya PU College, our ethos is rooted in a harmonious blend of modern commerce education and timeless Indian wisdom. As the First AI PU Commerce College in Shivamogga, we believe that true education goes beyond academic success and plays a vital role in building a meaningful and responsible society.</p>
+
+                <p class="ethos-strip">Inspired by ancient knowledge systems that shaped economic thought and governance, we introduce students to values that guide ethical decision-making and sustainable growth.</p>
+
+                <p class="ethos-strip"><strong>“अर्थस्य मूलं धर्मः” </strong>(Kautilya – Arthashastra)<br>
+                Wealth and economic progress must be rooted in righteousness.</p>
+
+                <p class="ethos-strip"><strong>“संयमेन संपदः वृद्धिः”</strong><br>
+                Discipline increases wealth.</p>
+
+                <p class="ethos-strip">Through these principles, students understand that economics and commerce are not just about profit, but about responsibility, balance, and societal impact. We encourage learners to develop strong analytical abilities, ethical judgment, and a long-term vision in financial and economic decision-making.</p>
+
+                <p class="ethos-strip">Our approach integrates AI-enabled learning, digital platforms, and practical training with value-based education, enabling students to become thoughtful economists, responsible professionals, and future leaders.</p>
+
+                <p class="ethos-strip">Beyond academics, we focus on nurturing individuals who contribute to economic development, promote ethical business practices, and help build a progressive and meaningful society.</p>
             </div>
         </div>
     </div>
-	<!-- end section -->
+</div>
+<div class="section layout_padding_2 goals-section">
+    <div class="container">
+        <div class="goals-top text_align_center">
+            <div class="heading_main text_align_center">
+                <h3>GOALS</h3>
+            </div>
+
+            <p class="goals-intro">
+                At Sri Vidyalaya PU College, we are committed to building a strong foundation for future commerce professionals and leaders. As the First AI PU Commerce College in Shivamogga, our goal is not only academic excellence but also creating individuals who contribute meaningfully to the economy and society.
+            </p>
+
+            <h5 class="goals-subtitle">OVER THE NEXT 10 YEARS, WE AIM TO NURTURE AND DEVELOP:</h5>
+        </div>
+
+        <div class="goals-card-list">
+            <div class="goal-card"><p>5 Kautilya-inspired strategic thinkers</p></div>
+            <div class="goal-card"><p>50 Chartered Accountants (CA)</p></div>
+            <div class="goal-card"><p>75 Economists</p></div>
+            <div class="goal-card"><p>90 Actuarial Science Professionals</p></div>
+            <div class="goal-card"><p>100 Company Secretaries (CS)</p></div>
+            <div class="goal-card"><p>1000 Entrepreneurs</p></div>
+        </div>
+
+        <p class="goals-summary text_align_center">
+            These goals reflect our commitment to going beyond traditional education by focusing on analytical thinking, career readiness, ethical values, and innovation. We strive to create a generation of professionals who are skilled, responsible, and capable of leading in the evolving global economy.
+        </p>
+    </div>
+</div>
+	<!-- start section -->
+<div class="section layout_padding_2 about-courses-section">
+    <div class="container">
+        <div class="row about-courses-row">
+            <div class="col-md-6 about-courses-text-col">
+                <div class="heading_main text_align_left about-courses-heading">
+                    <h3>About Our Courses</h3>
+                </div>
+
+                <div class="about-courses-text">
+                    <p>Sri Vidyalaya PU College offers specialized Commerce education designed to build a strong academic foundation and prepare students for future professional careers. Our program focuses on core subjects such as Accountancy, Economics, Business Studies, and Statistics, ensuring students gain both theoretical knowledge and practical understanding.</p>
+
+                    <p>We provide structured coaching for SEBA (Statistics, Economics, Business Studies, Accountancy) with a strong emphasis on analytical and quantitative skills. In addition, we guide students toward higher education and professional paths such as CA, CS, B.Com, and BBA.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 about-courses-image-col">
+                <div class="about-courses-image-wrap">
+                    <img src="img/About-US/Sri_Vidyalaya_About_Our_Courses.png" alt="Sri Vidyalaya PU College About Our Courses" class="Sri_Vidyalaya_About_Our_Courses-img">
+                </div>
+            </div>
+        </div>
+
+        <div class="about-courses-wide">
+            <p>Special focus is given to emerging and high-potential career fields like Actuarial Science, which involves using mathematics and statistics to analyze risk and make financial decisions. This field requires strong analytical thinking and offers excellent global career opportunities.</p>
+
+            <p>Through focused guidance, skill development, and career awareness, we prepare students to confidently pursue advanced studies and succeed in competitive, future-oriented professions.</p>
+
+            <div class="learn-more-wrap">
+                <a class="hvr-radial-out button-theme" href="services.html">Learn more</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end section -->
+
     <!-- Start Footer -->
     <footer class="footer-box">
         <div class="container">
@@ -211,13 +674,14 @@
                     </div>
                 </div>
                 <!-- Site Links | Footer -->
+               <!-- Site Links | Footer -->
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <div class="footer_blog footer_menu white_fonts">
                         <h5>About</h5>
                             <ul> 
                                 <li><a href="/about.html">About Sri Vidyalaya PU College</a></li>
-                                <li><a href="/services.html">Courses Offered</a></li>
-                                <li><a href="/about-us/what-we-stand-for.html">What We Stand For</a></li>
+                                <li><a href="/courses_offerred.html">Courses Offered</a></li>
+                                <li><a href="#">What We Stand For</a></li>
                             </ul>
                     </div>
                 </div>
@@ -225,14 +689,10 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                 <div class="footer_blog footer_menu white_fonts">
                     <h5>Courses Offered</h5>
-                    <ul> 
-                    <li><a href="/services/agricultural-innovation.html">Agricultural Innovation</a></li>
-                        <li><a href="/Services/agricultural-innovation.html">Agricultural Innovation</a></li>
-                        <li><a href="/Services/forestry-silviculture.html">Forestry & Silviculture</a></li>
-                        <li><a href="/Services/land-management.html">Land Management</a></li>
-                        <li><a href="/Services/mixed-farming.html">Mixed Farming</a></li>
-                        <li><a href="/Services/sustainable-agriculture.html">Sustainable Agriculture</a></li>
-                    </ul>
+                   <ul>
+                            <li><a href="/courses_offerred.html">Academic and Professional Courses</a></li>
+                            <li><a href=/courses_offerred.html">Certifications and Skill Enhancement Courses</a></li>
+                        </ul>
                     </div>
                 </div> 
                 <!-- Contact Us | Footer -->
@@ -241,7 +701,7 @@
                         <h5>Contact</h5>
                             <ul class="full footer_content">
                                 <li>17, 1st Cross Rd, Hosamane, Shivamogga, Karnataka 577201</li>
-                                <li>Srividyalaya26@gmail.com</li>
+                                <li>ASK@svpucollege.org</li>
                                 <li>8088449499</li>
                             </ul>
                     </div>
