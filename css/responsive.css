@@ -160,7 +160,17 @@ a.navbar-brand img {
 	.tab_menu {
     overflow-y: hidden !important;
     padding: 0 30px;
+    flex-wrap: wrap;
 }
+	.tab_menu ul {
+        justify-content: center;
+}
+	.admission-header-btn {
+        position: static;
+        transform: none;
+        margin: 12px auto 0;
+        right: auto;
+    }
 
 .blog_img_popular h4 {
 	text-align: center;
@@ -196,6 +206,13 @@ a.navbar-brand img {
      .top-header .navbar .navbar-collapse ul li a{
          padding: 5px 15px;
     }
+     .admission-header-btn {
+         width: 100%;
+         max-width: 320px;
+         margin: 12px auto 0;
+         position: static;
+         transform: none;
+     }
      .lbox-details h1{
          font-size: 24px;
     }

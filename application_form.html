@@ -392,9 +392,7 @@ button {
         <select id="stream" required>
             <option value="">Select Stream</option>
             <option>Commerce - SEBA</option>
-            <option>Science - PCM</option>
-            <option>Science - PCB</option>
-            <option>Arts</option>
+            <option>Commerce - CEBA</option>
         </select>
         <span class="error-message" id="stream-error">Please select a stream</span>
     </div>
@@ -410,28 +408,7 @@ button {
     </div>
 </div>
 
-<div class="form-row">
-    <div class="form-group">
-        <label>Section <span class="required">*</span></label>
-        <select id="section" required>
-            <option value="">Select Section</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>D</option>
-        </select>
-        <span class="error-message" id="section-error">Please select section</span>
-    </div>
-    
-    <div class="form-group">
-        <label>Reservation Category</label>
-        <select id="reservation">
-            <option value="">Select Category</option>
-            <option>General</option>
-            <option>OBC</option>
-            <option>SC/ST</option>
-        </select>
-    </div>
+
 </div>
 
 <div class="buttons">
@@ -446,7 +423,7 @@ button {
 
 <div class="form-row full">
     <div class="form-group">
-        <label>Student Name (CAPITAL LETTERS ONLY) <span class="required">*</span></label>
+        <label>Student Name (CAPITAL LETTERS ONLY) (AS PER AADHAR CARD) <span class="required">*</span></label>
         <input type="text" id="studentName" placeholder="Enter full name in CAPITAL letters" pattern="[A-Z\s]+" required>
         <span class="error-message" id="studentName-error">Use CAPITAL letters only</span>
     </div>
@@ -564,7 +541,9 @@ button {
         <input type="tel" id="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
         <span class="error-message" id="mobile-error">Mobile must be 10 digits</span>
     </div>
-    
+</div>
+
+<div class="form-row">
     <div class="form-group">
         <label>Email <span class="required">*</span></label>
         <input type="email" id="email" placeholder="Valid email address" required>
@@ -616,6 +595,8 @@ button {
         <textarea id="parentAddress" placeholder="Enter parent/guardian address"></textarea>
     </div>
 </div>
+
+
 
 <div class="form-row">
     <div class="form-group">
@@ -672,6 +653,13 @@ button {
             <option>ICSE</option>
             <option>Other</option>
         </select>
+        <small style="color: #666; font-size: 11px; margin-top: 2px; display: block;">
+            📚 <strong>Marking Scheme:</strong><br>
+            • State/Other: 1st Lang(125) + 5 subjects(100) = 625 total<br>
+            • CBSE: 6 subjects(100) = 600 total + CBSE grade calculation<br>
+            • ICSE: 6 subjects(100) = 600 total<br>
+            • <strong>CBSE Pass Criteria:</strong> 33% in each subject + grade higher than E
+        </small>
     </div>
     
     <div class="form-group">
@@ -697,12 +685,12 @@ button {
                 <option value="">Select Language</option>
                 <option>Kannada</option>
                 <option>English</option>
-                <option>Hindi</option>
                 <option>Sanskrit</option>
+                <option>Hindi</option>
             </select>
         </div>
         <div class="form-group">
-            <label>1st Language Marks (out of 125) <span class="required">*</span></label>
+            <label id="lang1MarksLabel">1st Language Marks (out of 125) <span class="required">*</span></label>
             <input type="number" id="lang1Marks" placeholder="0" min="0" max="125" required>
             <span class="error-message" id="lang1Marks-error">Marks must be between 0-125</span>
         </div>
@@ -717,7 +705,6 @@ button {
                 <option>Kannada</option>
                 <option>English</option>
                 <option>Hindi</option>
-                <option>Sanskrit</option>
             </select>
         </div>
         <div class="form-group">
@@ -736,7 +723,6 @@ button {
                 <option>Kannada</option>
                 <option>English</option>
                 <option>Hindi</option>
-                <option>Sanskrit</option>
             </select>
         </div>
         <div class="form-group">
@@ -800,6 +786,19 @@ button {
             <option>Fail</option>
             <option>Compartment</option>
         </select>
+    </div>
+</div>
+
+<!-- Grade Display (shown for CBSE and Karnataka SSLC boards) -->
+<div class="form-row full" id="cbseGradeDisplay" style="display: none;">
+    <div class="form-group" style="background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4CAF50;">
+        <label id="cbseGradeLabel" style="color: #2e7d32; font-weight: bold;">Grade</label>
+        <div style="font-size: 18px; font-weight: bold; color: #2e7d32; margin-top: 5px;">
+            <span id="cbseGrade">-</span>
+        </div>
+        <small id="gradeDescription" style="color: #666; font-size: 11px;">
+            📊 Grading scale information
+        </small>
     </div>
 </div>
 
@@ -914,6 +913,12 @@ button {
 <div class="step">
 <div class="form-title">Step 7: Review & Submit</div>
 
+<div style="background: #fff8e1; border-left: 4px solid #f0b429; padding: 16px; border-radius: 6px; margin-bottom: 20px; color: #5f4300;">
+    <h4 style="margin-bottom: 10px;">Final Instructions</h4>
+    <p style="margin-bottom: 8px; line-height: 1.6;">Please verify every detail before generating the final application PDF. The PDF will contain your admission information, selected courses, academic details, and all uploaded documents (Aadhaar, Marksheet, Transfer Certificate) embedded as images for clear visibility and verification.</p>
+    <p style="line-height: 1.6;">After clicking the final button, the form data will not be sent to any online backend. A PDF copy will be generated on this device for submission to the college office.</p>
+</div>
+
 <div id="reviewSummary" style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
     <p style="text-align: center; color: #666;">Loading summary...</p>
 </div>
@@ -928,21 +933,24 @@ button {
 
 <div class="buttons">
     <button type="button" class="btn-secondary" onclick="prevStep()">← Back</button>
-    <button type="submit" class="btn-primary" id="submitBtn">Submit Application</button>
+    <button type="submit" class="btn-primary" id="submitBtn">Generate Final PDF</button>
 </div>
 </div>
 
 </form>
 
 <div class="success-message" id="successMessage">
-    ✓ Application submitted successfully!<br>
+    ✓ Application PDF generated successfully!<br>
     Your Admission Number: <strong id="admissionResult"></strong><br>
-    We will contact you soon.
+    Keep the downloaded PDF for college submission.
+    <div style="margin-top: 20px;">
+        <a href="https://svpucollege.org" class="btn-primary" style="text-decoration: none; display: inline-block;">Go to Home Page</a>
+    </div>
 </div>
 
 <div class="loading" id="loading">
     <div class="spinner"></div>
-    <p>Processing your application...</p>
+    <p>Generating your application PDF...</p>
 </div>
 
 </div>
