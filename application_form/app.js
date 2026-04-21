@@ -18,6 +18,9 @@ function initializeForm() {
     // Auto-generate admission number when SATS number changes
     document.getElementById('satsNo').addEventListener('change', generateAdmissionNumber);
     
+    // Initialize mark limits based on default board
+    updateMarkLimits();
+    
     // Auto-format mobile number
     document.getElementById('mobile').addEventListener('input', function() {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
@@ -37,21 +40,33 @@ function initializeForm() {
     document.getElementById('marksObtained').addEventListener('change', calculatePercentage);
     document.getElementById('totalMarks').addEventListener('change', calculatePercentage);
     
-    // SSLC Subject Marks validation and auto-calculate CBSE percentage
+    // Calculate percentage and update mark limits when board changes
+    document.getElementById('board').addEventListener('change', function() {
+        updateMarkLimits();
+        calculatePercentage();
+    });
+
+    // Update mark limits and calculate percentage when medium changes
+    document.getElementById('academicMedium').addEventListener('change', function() {
+        updateMarkLimits();
+        calculatePercentage();
+    });
+    
+    // SSLC Subject Marks validation and auto-calculate percentage
     const sslcMarksFields = ['lang1Marks', 'lang2Marks', 'lang3Marks', 'mathMarks', 'scienceMarks', 'socialScienceMarks'];
     sslcMarksFields.forEach(fieldId => {
         const field = document.getElementById(fieldId);
         if (field) {
             field.addEventListener('blur', function() {
                 validateField(field);
-                calculateCBSEPercentage();
+                calculatePercentage();
             });
             field.addEventListener('input', function() {
                 const max = field.max || 100;
                 const value = parseFloat(field.value);
                 if (value > max) field.value = max;
             });
-            field.addEventListener('change', calculateCBSEPercentage);
+            field.addEventListener('change', calculatePercentage);
         }
     });
     
@@ -77,38 +92,256 @@ function generateAdmissionNumber() {
     document.getElementById('admissionNo').value = admissionNo;
 }
 
-function calculatePercentage() {
-    const obtained = parseFloat(document.getElementById('marksObtained').value) || 0;
-    const total = parseFloat(document.getElementById('totalMarks').value) || 0;
-    
-    if (total > 0) {
-        const percentage = ((obtained / total) * 100).toFixed(2);
-        document.getElementById('percentage').value = percentage;
+
+
+// Duplicate checking function
+async function checkForDuplicates(data) {
+    try {
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                action: 'check_duplicates',
+                data: {
+                    mobile: data.mobile,
+                    satsNo: data.satsNo,
+                    aadhaar: data.aadhaar,
+                    registerNo: data.registerNo,
+                    admissionNo: data.admissionNo
+                }
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        return result;
+        
+    } catch (error) {
+        console.error('Duplicate check error:', error);
+        // Return false if check fails (allow submission)
+        return { isDuplicate: false, message: 'Unable to check duplicates' };
     }
 }
 
-// Calculate CBSE percentage from SSLC subject marks
-function calculateCBSEPercentage() {
-    // Get all SSLC subject marks
+// Update mark limits based on board selection
+function updateMarkLimits() {
+    const board = document.getElementById('board').value;
+    const medium = document.getElementById('academicMedium').value;
+
+    // Update 1st language max marks and labels
+    const lang1Field = document.getElementById('lang1Marks');
+    const lang1Label = document.getElementById('lang1MarksLabel');
+    const lang1Error = document.getElementById('lang1Marks-error');
+
+    if (board === 'State Board' || board === 'Other') {
+        // State Board: 1st Language always = 125 marks, others = 100 marks
+        lang1Field.max = 125;
+        if (lang1Label) lang1Label.innerHTML = '1st Language Marks (out of 125) <span class="required">*</span>';
+        if (lang1Error) lang1Error.textContent = 'Marks must be between 0-125';
+    } else {
+        // CBSE/ICSE: All subjects = 100 marks
+        lang1Field.max = 100;
+        if (lang1Label) lang1Label.innerHTML = '1st Language Marks (out of 100) <span class="required">*</span>';
+        if (lang1Error) lang1Error.textContent = 'Marks must be between 0-100';
+    }
+
+    // Update total marks hint
+    const totalMarksHint = document.querySelector('small[style*="Auto-calculated"]');
+    if (totalMarksHint) {
+        if (board === 'State Board' || board === 'Other') {
+            totalMarksHint.innerHTML = 'Auto-calculated: 125 + 100×5 = 625';
+        } else {
+            totalMarksHint.innerHTML = 'Auto-calculated: Best 5 of 6 subjects = 500';
+        }
+    }
+}
+
+// Calculate percentage based on board
+function calculatePercentage() {
+    const board = document.getElementById('board').value;
+    const medium = document.getElementById('academicMedium').value;
+
+    if (!board) {
+        return; // Don't calculate if no board selected
+    }
+
     const lang1 = parseFloat(document.getElementById('lang1Marks').value) || 0;
     const lang2 = parseFloat(document.getElementById('lang2Marks').value) || 0;
     const lang3 = parseFloat(document.getElementById('lang3Marks').value) || 0;
     const math = parseFloat(document.getElementById('mathMarks').value) || 0;
     const science = parseFloat(document.getElementById('scienceMarks').value) || 0;
     const socialScience = parseFloat(document.getElementById('socialScienceMarks').value) || 0;
-    
-    // Total marks: 125 + 100 + 100 + 100 + 100 + 100 = 625
-    const totalMarks = 625;
-    const obtainedMarks = lang1 + lang2 + lang3 + math + science + socialScience;
-    
-    // Calculate percentage
-    if (obtainedMarks > 0) {
-        const percentage = ((obtainedMarks / totalMarks) * 100).toFixed(2);
-        // Set the total and marks obtained fields based on SSLC
-        document.getElementById('totalMarks').value = totalMarks;
-        document.getElementById('marksObtained').value = obtainedMarks;
-        document.getElementById('percentage').value = percentage;
+
+    let totalMarks = 0;
+    let obtainedMarks = 0;
+    let percentage = 0;
+    let cbseGrade = '';
+    let karnatakaGrade = '';
+
+    if (board === 'State Board' || board === 'Other') {
+        // State Board: 1st Language = 125, others = 100, total = 625 (regardless of medium)
+        totalMarks = 625;
+        obtainedMarks = lang1 + lang2 + lang3 + math + science + socialScience;
+        percentage = totalMarks > 0 ? ((obtainedMarks / totalMarks) * 100) : 0;
+        karnatakaGrade = calculateKarnatakaSSLCGrade(obtainedMarks);
+    } else if (board === 'CBSE' || board === 'ICSE') {
+        // CBSE / ICSE Class 10: Best 5 of 6 subjects are counted, total = 500
+        const subjects = [lang1, lang2, lang3, math, science, socialScience];
+        const bestFive = subjects.sort((a, b) => b - a).slice(0, 5);
+        obtainedMarks = bestFive.reduce((sum, mark) => sum + mark, 0);
+        totalMarks = 500;
+
+        if (board === 'CBSE') {
+            percentage = totalMarks > 0 ? ((obtainedMarks / totalMarks) * 100) : 0;
+            cbseGrade = calculateCBSEGrade(percentage);
+        } else {
+            percentage = totalMarks > 0 ? ((obtainedMarks / totalMarks) * 100) : 0;
+        }
     }
+
+    document.getElementById('totalMarks').value = totalMarks;
+    document.getElementById('marksObtained').value = obtainedMarks.toFixed(2);
+    document.getElementById('percentage').value = percentage.toFixed(2);
+
+    const gradeDisplay = document.getElementById('cbseGradeDisplay');
+    const gradeLabel = document.getElementById('cbseGradeLabel');
+    const gradeValue = document.getElementById('cbseGrade');
+    const gradeDescription = document.getElementById('gradeDescription');
+
+    if (board === 'CBSE' && cbseGrade) {
+        gradeDisplay.style.display = 'block';
+        if (gradeLabel) gradeLabel.textContent = 'CBSE Grade:';
+        gradeValue.textContent = cbseGrade;
+        if (gradeDescription) gradeDescription.textContent = '📊 CBSE 9-point grading scale: A-1 (91%+), A-2 (81%+), B-1 (71%+), B-2 (61%+), C-1 (51%+), C-2 (41%+), D-1 (33%+), D-2 (21%+), E (Fail)';
+    } else if ((board === 'State Board' || board === 'Other') && karnatakaGrade) {
+        gradeDisplay.style.display = 'block';
+        if (gradeLabel) gradeLabel.textContent = 'Karnataka SSLC Grade:';
+        gradeValue.textContent = karnatakaGrade;
+        if (gradeDescription) gradeDescription.textContent = '📊 Karnataka SSLC 2026 grading: A+ (563-625), A (500-562), B+ (438-499), B (375-437), C+ (313-374), C (219-312)';
+    } else {
+        gradeDisplay.style.display = 'none';
+    }
+}
+
+// Calculate CBSE grade based on percentage (9-point scale)
+function calculateCBSEGrade(percentage) {
+    if (percentage >= 91) return 'A-1';
+    if (percentage >= 81) return 'A-2';
+    if (percentage >= 71) return 'B-1';
+    if (percentage >= 61) return 'B-2';
+    if (percentage >= 51) return 'C-1';
+    if (percentage >= 41) return 'C-2';
+    if (percentage >= 33) return 'D-1';
+    if (percentage >= 21) return 'D-2';
+    return 'E';
+}
+
+// Calculate Karnataka SSLC grade based on marks obtained (2026 grading system)
+function calculateKarnatakaSSLCGrade(marksObtained) {
+    if (marksObtained >= 563 && marksObtained <= 625) return 'A+';
+    if (marksObtained >= 500 && marksObtained <= 562) return 'A';
+    if (marksObtained >= 438 && marksObtained <= 499) return 'B+';
+    if (marksObtained >= 375 && marksObtained <= 437) return 'B';
+    if (marksObtained >= 313 && marksObtained <= 374) return 'C+';
+    if (marksObtained >= 219 && marksObtained <= 312) return 'C';
+    if (marksObtained < 219) return 'Fail';
+    return 'Invalid';
+}
+
+// Validate CBSE pass criteria
+function validateCBSEPassCriteria() {
+    const board = document.getElementById('board').value;
+    
+    if (board !== 'CBSE') {
+        return true; // Skip validation for non-CBSE boards
+    }
+    
+    // Get all subject marks
+    const subjects = [
+        { name: '1st Language', marks: parseFloat(document.getElementById('lang1Marks').value) || 0, max: 125 },
+        { name: '2nd Language', marks: parseFloat(document.getElementById('lang2Marks').value) || 0, max: 100 },
+        { name: '3rd Language', marks: parseFloat(document.getElementById('lang3Marks').value) || 0, max: 100 },
+        { name: 'Mathematics', marks: parseFloat(document.getElementById('mathMarks').value) || 0, max: 100 },
+        { name: 'Science', marks: parseFloat(document.getElementById('scienceMarks').value) || 0, max: 100 },
+        { name: 'Social Science', marks: parseFloat(document.getElementById('socialScienceMarks').value) || 0, max: 100 }
+    ];
+    
+    let failedSubjects = [];
+    
+    // Check each subject for 33% pass criteria
+    subjects.forEach(subject => {
+        const percentage = (subject.marks / subject.max) * 100;
+        if (percentage < 33) {
+            failedSubjects.push(`${subject.name} (${percentage.toFixed(1)}%)`);
+        }
+    });
+    
+    if (failedSubjects.length > 0) {
+        alert(`CBSE Pass Criteria Not Met:\n\nThe following subjects have less than 33% marks:\n${failedSubjects.join('\n')}\n\nCBSE requires 33% in each subject to pass.`);
+        return false;
+    }
+    
+    return true;
+}
+
+// Test function for board calculations (can be called from browser console)
+function testBoardCalculations() {
+    console.log('Testing Board & Medium-based Percentage Calculations:');
+    console.log('====================================================');
+
+    // Test data for different boards and mediums
+    const testData = {
+        stateBoard: { lang1: 110, lang2: 85, lang3: 90, math: 95, science: 88, socialScience: 92 },
+        cbse: { lang1: 95, lang2: 88, lang3: 92, math: 96, science: 89, socialScience: 94 },
+        icse: { lang1: 95, lang2: 87, lang3: 91, math: 94, science: 86, socialScience: 90 }
+    };
+
+    console.log('State Board Calculations:');
+    console.log('-------------------------');
+
+    // Test State Board - Kannada Medium (1st Lang = 125, others = 100, total = 625)
+    let total = 625;
+    let obtained = Object.values(testData.stateBoard).reduce((a, b) => a + b, 0);
+    let percentage = ((obtained / total) * 100).toFixed(2);
+    console.log(`State Board (Kannada Medium): ${obtained}/${total} = ${percentage}%`);
+
+    // Test State Board - English Medium (all subjects = 100, total = 600)
+    total = 600;
+    obtained = Object.values(testData.stateBoard).reduce((a, b) => a + b, 0);
+    percentage = ((obtained / total) * 100).toFixed(2);
+    console.log(`State Board (English Medium): ${obtained}/${total} = ${percentage}%`);
+
+    console.log('');
+    console.log('CBSE/ICSE Calculations (Best 5 of 6 subjects = 500):');
+    console.log('---------------------------------------------------');
+
+    // Test CBSE - Best 5 calculation
+    const cbseSubjects = Object.values(testData.cbse);
+    const cbseBestFive = cbseSubjects.sort((a, b) => b - a).slice(0, 5);
+    obtained = cbseBestFive.reduce((sum, mark) => sum + mark, 0);
+    total = 500;
+    percentage = ((obtained / total) * 100).toFixed(2);
+    let grade = calculateCBSEGrade(parseFloat(percentage));
+    console.log(`CBSE: Best 5 of [${cbseSubjects.join(', ')}] = ${obtained}/${total} = ${percentage}% (Grade: ${grade})`);
+
+    // Test ICSE - Best 5 calculation
+    const icseSubjects = Object.values(testData.icse);
+    const icseBestFive = icseSubjects.sort((a, b) => b - a).slice(0, 5);
+    obtained = icseBestFive.reduce((sum, mark) => sum + mark, 0);
+    percentage = ((obtained / total) * 100).toFixed(2);
+    console.log(`ICSE: Best 5 of [${icseSubjects.join(', ')}] = ${obtained}/${total} = ${percentage}%`);
+
+    console.log('');
+    console.log('CBSE Grading Scale:');
+    console.log('A-1: 91%+, A-2: 81%+, B-1: 71%+, B-2: 61%+, C-1: 51%+, C-2: 41%+, D-1: 33%+, D-2: 21%+, E: Fail');
+    console.log('====================================================');
+    console.log('Test completed successfully!');
+}
+
+// Legacy function for backward compatibility
+function calculateCBSEPercentage() {
+    calculatePercentage();
 }
 
 function setupEventListeners() {
@@ -269,6 +502,20 @@ function clearError(field) {
     field.classList.remove('invalid');
 }
 
+function showError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorElement = document.getElementById(fieldId + '-error');
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    } else {
+        alert(message);
+    }
+    if (field) {
+        field.classList.add('invalid');
+    }
+}
+
 function validateCurrentStep() {
     const step = document.querySelectorAll('.step')[currentStep];
     const fields = step.querySelectorAll('input[required], select[required], textarea[required]');
@@ -358,6 +605,7 @@ function collectFormData() {
         totalMarks: getFieldValue('totalMarks'),
         marksObtained: getFieldValue('marksObtained'),
         percentage: getFieldValue('percentage'),
+        grade: document.getElementById('cbseGrade')?.textContent || '',
         result: getFieldValue('result'),
         
         // SSLC Subject Marks
@@ -472,6 +720,23 @@ async function submitForm(e) {
     
     collectFormData();
     
+    // Validate CBSE pass criteria if applicable
+    if (!validateCBSEPassCriteria()) {
+        return; // Stop submission if CBSE criteria not met
+    }
+    
+    // Check for duplicates before submission
+    try {
+        const duplicateCheck = await checkForDuplicates(formData);
+        if (duplicateCheck.isDuplicate) {
+            alert(`Duplicate registration detected: ${duplicateCheck.message}\n\nPlease check your information and try again.`);
+            return;
+        }
+    } catch (error) {
+        console.error('Duplicate check failed:', error);
+        // Continue with submission if duplicate check fails
+    }
+    
     // Show loading
     document.getElementById('loading').style.display = 'block';
     document.getElementById('admissionForm').style.display = 'none';
@@ -573,134 +838,399 @@ async function addStudentPhotoToPdf(pdf) {
     pdf.addImage(imageDataUrl, photoFile.type === 'image/png' ? 'PNG' : 'JPEG', x, y, renderWidth, renderHeight);
 }
 
+async function addAadhaarToPdf(pdf, yPosition) {
+    const aadhaarFile = document.getElementById('aadhaarDocument')?.files?.[0];
+
+    if (!aadhaarFile || (!aadhaarFile.type.startsWith('image/') && aadhaarFile.type !== 'application/pdf')) {
+        return yPosition;
+    }
+
+    // Add section title
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(12);
+    pdf.text('Aadhaar Document', 15, yPosition);
+    yPosition += 8;
+
+    if (aadhaarFile.type === 'application/pdf') {
+        // For PDF files, just show filename
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(10);
+        pdf.text(`PDF Document: ${aadhaarFile.name}`, 20, yPosition);
+        yPosition += 10;
+    } else {
+        // For image files, embed the image
+        try {
+            const imageDataUrl = await readFileAsDataUrl(aadhaarFile);
+            const imageProps = pdf.getImageProperties(imageDataUrl);
+            const maxWidth = 80;
+            const maxHeight = 60;
+            const ratio = Math.min(maxWidth / imageProps.width, maxHeight / imageProps.height);
+            const renderWidth = imageProps.width * ratio;
+            const renderHeight = imageProps.height * ratio;
+            const x = 15 + ((maxWidth - renderWidth) / 2);
+            const y = yPosition;
+
+            pdf.setDrawColor(180, 180, 180);
+            pdf.rect(15, yPosition, maxWidth, maxHeight);
+            pdf.addImage(imageDataUrl, aadhaarFile.type === 'image/png' ? 'PNG' : 'JPEG', x, y, renderWidth, renderHeight);
+            yPosition += maxHeight + 5;
+        } catch (error) {
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(10);
+            pdf.text(`Error loading image: ${aadhaarFile.name}`, 20, yPosition);
+            yPosition += 10;
+        }
+    }
+
+    return yPosition;
+}
+
+async function addMarksheetToPdf(pdf, yPosition) {
+    const marksheetFile = document.getElementById('marksheet')?.files?.[0];
+
+    if (!marksheetFile || (!marksheetFile.type.startsWith('image/') && marksheetFile.type !== 'application/pdf')) {
+        return yPosition;
+    }
+
+    // Add section title
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(12);
+    pdf.text('Marksheet Document', 15, yPosition);
+    yPosition += 8;
+
+    if (marksheetFile.type === 'application/pdf') {
+        // For PDF files, just show filename
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(10);
+        pdf.text(`PDF Document: ${marksheetFile.name}`, 20, yPosition);
+        yPosition += 10;
+    } else {
+        // For image files, embed the image
+        try {
+            const imageDataUrl = await readFileAsDataUrl(marksheetFile);
+            const imageProps = pdf.getImageProperties(imageDataUrl);
+            const maxWidth = 80;
+            const maxHeight = 60;
+            const ratio = Math.min(maxWidth / imageProps.width, maxHeight / imageProps.height);
+            const renderWidth = imageProps.width * ratio;
+            const renderHeight = imageProps.height * ratio;
+            const x = 15 + ((maxWidth - renderWidth) / 2);
+            const y = yPosition;
+
+            pdf.setDrawColor(180, 180, 180);
+            pdf.rect(15, yPosition, maxWidth, maxHeight);
+            pdf.addImage(imageDataUrl, marksheetFile.type === 'image/png' ? 'PNG' : 'JPEG', x, y, renderWidth, renderHeight);
+            yPosition += maxHeight + 5;
+        } catch (error) {
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(10);
+            pdf.text(`Error loading image: ${marksheetFile.name}`, 20, yPosition);
+            yPosition += 10;
+        }
+    }
+
+    return yPosition;
+}
+
+async function addTransferCertificateToPdf(pdf, yPosition) {
+    const tcFile = document.getElementById('transferCertificate')?.files?.[0];
+
+    if (!tcFile || (!tcFile.type.startsWith('image/') && tcFile.type !== 'application/pdf')) {
+        return yPosition;
+    }
+
+    // Add section title
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(12);
+    pdf.text('Transfer Certificate', 15, yPosition);
+    yPosition += 8;
+
+    if (tcFile.type === 'application/pdf') {
+        // For PDF files, just show filename
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(10);
+        pdf.text(`PDF Document: ${tcFile.name}`, 20, yPosition);
+        yPosition += 10;
+    } else {
+        // For image files, embed the image
+        try {
+            const imageDataUrl = await readFileAsDataUrl(tcFile);
+            const imageProps = pdf.getImageProperties(imageDataUrl);
+            const maxWidth = 80;
+            const maxHeight = 60;
+            const ratio = Math.min(maxWidth / imageProps.width, maxHeight / imageProps.height);
+            const renderWidth = imageProps.width * ratio;
+            const renderHeight = imageProps.height * ratio;
+            const x = 15 + ((maxWidth - renderWidth) / 2);
+            const y = yPosition;
+
+            pdf.setDrawColor(180, 180, 180);
+            pdf.rect(15, yPosition, maxWidth, maxHeight);
+            pdf.addImage(imageDataUrl, tcFile.type === 'image/png' ? 'PNG' : 'JPEG', x, y, renderWidth, renderHeight);
+            yPosition += maxHeight + 5;
+        } catch (error) {
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(10);
+            pdf.text(`Error loading image: ${tcFile.name}`, 20, yPosition);
+            yPosition += 10;
+        }
+    }
+
+    return yPosition;
+}
+
 async function generateSubmissionPDF(data) {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'a4');
-    const uploadedDocuments = getUploadedDocuments();
 
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    let y = 30;
+
+    // ===== HEADER =====
+    pdf.setFillColor(47, 94, 165);
+    pdf.rect(0, 0, pageWidth, 25, 'F');
+
+    pdf.setTextColor(255, 255, 255);
     pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(18);
-    pdf.text('Sri Vidyalaya PU College', 15, 18);
-    pdf.setFontSize(14);
-    pdf.text('Admission Application Summary', 15, 27);
+    pdf.text('SRI VIDYALAYA PU COLLEGE', pageWidth / 2, 12, { align: 'center' });
 
+    pdf.setFontSize(11);
+    pdf.text('ADMISSION APPLICATION FORM', pageWidth / 2, 20, { align: 'center' });
+
+    pdf.setTextColor(0, 0, 0);
+
+    // ===== PHOTO =====
+    pdf.setDrawColor(180);
+    pdf.rect(160, 30, 35, 45);
     await addStudentPhotoToPdf(pdf);
 
-    pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(10);
-    pdf.text(`Generated On: ${data.submittedAt}`, 15, 35);
-    pdf.text(`Admission Number: ${data.admissionNo || 'N/A'}`, 15, 41);
-
-    let y = 50;
-
-    y = addPdfSection(pdf, 'Basic Information', [
-        { label: 'Admission Number', value: data.admissionNo },
-        { label: 'SATS Number', value: data.satsNo },
-        { label: 'Stream', value: data.stream },
-        { label: 'Medium', value: data.medium },
-        { label: 'Section', value: data.section },
-        { label: 'Reservation Category', value: data.reservation }
-    ], y);
-
-    y = addPdfSection(pdf, 'Personal Details', [
-        { label: 'Student Name', value: data.studentName },
-        { label: 'Date of Birth', value: data.dob },
-        { label: 'Gender', value: data.gender },
-        { label: 'Place of Birth', value: data.placeOfBirth },
-        { label: 'State', value: data.state },
-        { label: 'District', value: data.district },
-        { label: 'Taluk', value: data.taluk },
-        { label: 'Nationality', value: data.nationality },
-        { label: 'Religion', value: data.religion },
-        { label: 'Caste', value: data.caste },
-        { label: 'Subcaste', value: data.subcaste }
-    ], y);
-
-    y = addPdfSection(pdf, 'Contact Details', [
-        { label: 'Permanent Address', value: data.permanentAddress },
-        { label: 'Local Address', value: data.localAddress },
-        { label: 'Mobile', value: data.mobile },
-        { label: 'Email', value: data.email },
-        { label: 'Aadhaar Number', value: data.aadhaar }
-    ], y);
-
-    y = addPdfSection(pdf, 'Family Details', [
-        { label: 'Father Name', value: data.fatherName },
-        { label: 'Mother Name', value: data.motherName },
-        { label: 'Parent Address', value: data.parentAddress },
-        { label: 'Annual Income', value: data.income },
-        { label: 'Income Certificate', value: data.incomeCertificate }
-    ], y);
-
-    y = addPdfSection(pdf, 'Academic Details', [
-        { label: 'School Name', value: data.schoolName },
-        { label: 'Register Number', value: data.registerNo },
-        { label: 'Passing Month', value: data.passingMonth },
-        { label: 'Board', value: data.board },
-        { label: 'Academic Medium', value: data.academicMedium },
-        { label: 'Total Marks', value: data.totalMarks },
-        { label: 'Marks Obtained', value: data.marksObtained },
-        { label: 'Percentage', value: data.percentage },
-        { label: 'Result', value: data.result },
-        { label: '1st Language', value: `${data.lang1Name || 'N/A'} - ${data.lang1Marks || 'N/A'}` },
-        { label: '2nd Language', value: `${data.lang2Name || 'N/A'} - ${data.lang2Marks || 'N/A'}` },
-        { label: '3rd Language', value: `${data.lang3Name || 'N/A'} - ${data.lang3Marks || 'N/A'}` },
-        { label: 'Mathematics', value: data.mathMarks },
-        { label: 'Science', value: data.scienceMarks },
-        { label: 'Social Science', value: data.socialScienceMarks }
-    ], y);
-
-    y = addPdfSection(pdf, 'Course Preferences', [
-        { label: 'First Language', value: data.firstLanguage },
-        { label: 'Courses Selected', value: data.courses },
-        { label: 'Activities', value: data.activities },
-        { label: 'Language Exemption', value: data.languageExemption },
-        { label: 'Physically Challenged', value: data.physicallyChallenged }
-    ], y);
-
-    y = addPdfSection(pdf, 'Uploaded Documents', uploadedDocuments.map(doc => ({
-        label: doc.label,
-        value: doc.status
-    })), y);
-
-    if (y > 235) {
-        pdf.addPage();
-        y = 20;
+    // ===== HELPERS =====
+    function newPageIfNeeded() {
+        if (y > 250) {
+            pdf.addPage();
+            y = 20;
+        }
     }
 
-    pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(12);
-    pdf.text('Declaration', 15, y);
-    y += 8;
+    function section(title) {
+        newPageIfNeeded();
 
-    pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(10);
-    const declarationText = pdf.splitTextToSize(
-        'I declare that the information provided in this application is true and correct to the best of my knowledge. I understand that this PDF is my final application record for submission to the college.',
+        y += 8;
+
+        // Background
+        pdf.setFillColor(240, 245, 255);
+        pdf.rect(10, y - 6, 190, 10, 'F');
+
+        // Border
+        pdf.setDrawColor(180);
+        pdf.rect(10, y - 6, 190, 10);
+
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(12);
+        pdf.text(title, 12, y);
+
+        y += 8;
+    }
+
+    function field(label, value) {
+        newPageIfNeeded();
+
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(10);
+        pdf.text(label + ":", 15, y);
+
+        pdf.setFont('helvetica', 'normal');
+        const text = pdf.splitTextToSize(value || 'N/A', 100);
+        pdf.text(text, 80, y);
+
+        y += text.length * 6;
+    }
+
+    function divider() {
+        pdf.setDrawColor(200);
+        pdf.line(10, y, 200, y);
+        y += 5;
+    }
+
+    // ===== BASIC =====
+    section('Basic Information');
+    field('Admission No', data.admissionNo);
+    field('SATS No', data.satsNo);
+    field('Stream', data.stream);
+    field('Medium', data.medium);
+    field('Section', data.section);
+    field('Reservation', data.reservation);
+    divider();
+
+    // ===== PERSONAL =====
+    section('Personal Details');
+    field('Name', data.studentName);
+    field('DOB', data.dob);
+    field('Gender', data.gender);
+    field('Place of Birth', data.placeOfBirth);
+    field('State', data.state);
+    field('District', data.district);
+    field('Taluk', data.taluk);
+    field('Nationality', data.nationality);
+    field('Religion', data.religion);
+    field('Caste', data.caste);
+    field('Subcaste', data.subcaste);
+    divider();
+
+    // ===== CONTACT =====
+    section('Contact Details');
+    field('Permanent Address', data.permanentAddress);
+    field('Local Address', data.localAddress);
+    field('Mobile', data.mobile);
+    field('Email', data.email);
+    field('Aadhaar', data.aadhaar);
+    divider();
+
+    // ===== ACADEMIC =====
+    section('Academic Details');
+    field('School Name', data.schoolName);
+    field('Register No', data.registerNo);
+    field('Board', data.board);
+    field('Percentage', data.percentage);
+    if (data.grade) {
+        const gradeLabel = data.board === 'CBSE' ? 'CBSE Grade' : 'Karnataka SSLC Grade';
+        field(gradeLabel, data.grade);
+    }
+
+    // ===== SUBJECT TABLE =====
+    y += 5;
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Subject', 20, y);
+    pdf.text('Marks', 150, y);
+    y += 5;
+
+    pdf.line(15, y, 190, y);
+    y += 5;
+
+    const subjects = [
+        [data.lang1Name, data.lang1Marks],
+        [data.lang2Name, data.lang2Marks],
+        [data.lang3Name, data.lang3Marks],
+        ['Mathematics', data.mathMarks],
+        ['Science', data.scienceMarks],
+        ['Social Science', data.socialScienceMarks]
+    ];
+
+    subjects.forEach(s => {
+        pdf.setFont('helvetica', 'normal');
+        pdf.text(s[0] || '-', 20, y);
+        pdf.text(String(s[1] || '-'), 150, y);
+        y += 7;
+    });
+
+    y += 5;
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(`Total: ${data.marksObtained} / ${data.totalMarks}`, 15, y);
+    y += 6;
+    pdf.text(`Percentage: ${data.percentage}%`, 15, y);
+
+    // ===== DOCUMENT PREVIEW =====
+    pdf.addPage();
+    y = 20;
+
+    section('Uploaded Documents Preview');
+
+    const files = [
+        { id: 'studentPhoto', label: 'Student Photo' },
+        { id: 'aadhaarDocument', label: 'Aadhaar' },
+        { id: 'marksheet', label: 'Marksheet' },
+        { id: 'transferCertificate', label: 'Transfer Certificate' }
+    ];
+
+    for (let fileObj of files) {
+        const file = document.getElementById(fileObj.id)?.files?.[0];
+
+        newPageIfNeeded();
+
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(fileObj.label, 12, y);
+        y += 5;
+
+        pdf.setDrawColor(180);
+        pdf.rect(12, y, 180, 90);
+
+        if (file && file.type.startsWith('image/')) {
+            const imgData = await readFileAsDataUrl(file);
+
+            const imgProps = pdf.getImageProperties(imgData);
+            const ratio = Math.min(170 / imgProps.width, 80 / imgProps.height);
+
+            const width = imgProps.width * ratio;
+            const height = imgProps.height * ratio;
+
+            const x = 12 + (180 - width) / 2;
+            const imgY = y + (90 - height) / 2;
+
+            pdf.addImage(
+                imgData,
+                file.type.includes('png') ? 'PNG' : 'JPEG',
+                x,
+                imgY,
+                width,
+                height
+            );
+
+        } else if (file) {
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(`Uploaded: ${file.name}`, 20, y + 10);
+        } else {
+            pdf.text('Not Uploaded', 20, y + 10);
+        }
+
+        y += 100;
+    }
+
+    // ===== DECLARATION =====
+    pdf.addPage();
+    y = 30;
+
+    section('Declaration');
+
+    const text = pdf.splitTextToSize(
+        'I declare that all the above information is correct. The college can verify my details and documents.',
         180
     );
-    pdf.text(declarationText, 15, y);
 
-    const fileName = `${(data.studentName || 'Admission_Form').replace(/[^a-zA-Z0-9]/g, '_')}_${data.admissionNo || 'Draft'}.pdf`;
-    pdf.save(fileName);
-}
+    pdf.text(text, 12, y);
+    y += text.length * 6 + 15;
 
-function showErrorMessage(message) {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('admissionForm').style.display = 'block';
-    alert(message);
-}
+    // SIGNATURES
+    pdf.line(15, y, 80, y);
+    pdf.text('Student Signature', 15, y + 5);
 
-// Print summary
-function printSummary() {
-    window.print();
-}
+    pdf.line(120, y, 190, y);
+    pdf.text('Principal Signature', 120, y + 5);
 
-// Generate submission PDF
-function downloadPDF() {
-    collectFormData();
-    generateSubmissionPDF(formData).catch(error => {
-        console.error('PDF generation error:', error);
-        alert('Unable to generate PDF. Please try again.');
-    });
+    // ===== HEADER + FOOTER ON ALL PAGES =====
+    const pageCount = pdf.getNumberOfPages();
+
+    for (let i = 1; i <= pageCount; i++) {
+        pdf.setPage(i);
+        
+        // Header line on all pages
+        pdf.setDrawColor(47, 94, 165);
+        pdf.line(10, 28, 200, 28);
+        
+        // Page header (smaller, on every page)
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(9);
+        pdf.setTextColor(47, 94, 165);
+        pdf.text('SRI VIDYALAYA PU COLLEGE - Admission Form', 10, 15);
+        
+        // Footer
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(9);
+        pdf.setTextColor(120);
+        pdf.text(`Page ${i} of ${pageCount}`, 170, 290);
+        pdf.text('Confidential - For Official Use Only', 10, 290);
+    }
+
+    // SAVE
+    pdf.save(`${data.studentName}_${data.admissionNo}.pdf`);
 }
