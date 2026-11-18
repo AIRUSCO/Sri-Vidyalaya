@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 
     <style>
         :root {
@@ -285,6 +289,133 @@
                 padding: 9px;
             }
         }
+
+
+        /* =====================================================
+           SRI VIDYALAYA | PROFESSIONAL CAREER GUIDANCE THEME
+           Navy blue, royal blue, white and restrained saffron
+        ====================================================== */
+        :root {
+            --sv-blue: #285d9f;
+            --sv-dark: #12366b;
+            --sv-navy: #092653;
+            --sv-light: #eaf3ff;
+            --sv-pale: #f4f7fc;
+            --sv-border: #dbe5f2;
+            --sv-text: #34445a;
+            --sv-muted: #64748b;
+            --sv-orange: #f5a623;
+            --sv-shadow: 0 12px 34px rgba(15, 48, 91, .08);
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--sv-text);
+            background: #fff;
+            line-height: 1.75;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1,h2,h3,h4,h5,h6 { font-family: 'Manrope', sans-serif; letter-spacing: -.035em; }
+        a { transition: color .25s ease, background .25s ease; }
+        .career-navbar { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,.97); box-shadow: 0 3px 18px rgba(9,38,83,.09); backdrop-filter: blur(12px); }
+        .career-navbar .nav-link { color: #26384f !important; font-size: 13px; font-weight: 800; letter-spacing: .045em; padding: 15px !important; }
+        .career-navbar .nav-link:hover, .career-navbar .active { color: var(--sv-blue) !important; }
+        .career-logo { max-height: 66px; width: auto; }
+        .career-btn { display:inline-block; background:var(--sv-blue); color:#fff !important; padding:12px 26px; border-radius:999px; font-weight:800; text-decoration:none !important; transition:all .3s ease; margin-top:15px; box-shadow:0 7px 18px rgba(40,93,159,.2); }
+        .career-btn:hover { background:var(--sv-navy); transform:translateY(-2px); box-shadow:0 11px 24px rgba(9,38,83,.24); }
+
+        .career-banner { position:relative; overflow:hidden; isolation:isolate; background:linear-gradient(125deg,#092653 0%,#164477 54%,#3475b9 100%); color:#fff; padding:76px 15px 72px; text-align:center; }
+        .career-banner:before,.career-banner:after { content:""; position:absolute; z-index:-1; border:1px solid rgba(255,255,255,.15); border-radius:50%; }
+        .career-banner:before { width:420px; height:420px; top:-260px; left:-90px; box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 75px rgba(255,255,255,.025); }
+        .career-banner:after { width:360px; height:360px; bottom:-260px; right:-60px; box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 75px rgba(255,255,255,.025); }
+        .career-banner h1 { color:#fff; font-size:clamp(30px,4vw,48px); line-height:1.18; font-weight:800; margin:0 auto 16px; max-width:950px; }
+        .career-banner p { color:rgba(255,255,255,.9); font-size:16px; max-width:790px; margin:auto; }
+        .career-banner .banner-kicker { display:inline-block; color:#ffe0a1; border:1px solid rgba(255,224,161,.45); border-radius:999px; padding:6px 15px; font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:18px; }
+
+        .career-section { position:relative; padding:76px 0; }
+        .career-section:nth-of-type(even) { background:var(--sv-pale); }
+        .section-heading { color:var(--sv-dark); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.3; text-align:center; margin:0 auto 15px; text-transform:none; }
+        .section-heading:after { content:""; display:block; width:58px; height:4px; border-radius:9px; background:var(--sv-orange); margin:16px auto 0; }
+        .section-intro { max-width:850px; text-align:center; color:var(--sv-muted); font-size:15px; line-height:1.9; margin:0 auto 42px; }
+
+        .career-card { position:relative; isolation:isolate; overflow:hidden; height:100%; padding:28px; background:linear-gradient(145deg,#fff,#fbfdff); border:1px solid var(--sv-border); border-radius:17px; box-shadow:0 5px 22px rgba(15,48,91,.055); transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease; }
+        .career-card:before { content:""; position:absolute; z-index:-1; left:0; top:0; width:100%; height:4px; background:linear-gradient(90deg,var(--sv-dark),var(--sv-blue),var(--sv-orange)); transform:scaleX(.35); transform-origin:left; transition:transform .35s ease; }
+        .career-card:hover { transform:translateY(-7px); border-color:#a9c5e8; box-shadow:0 17px 38px rgba(15,48,91,.13); }
+        .career-card:hover:before { transform:scaleX(1); }
+        .career-card h4 { color:var(--sv-dark); font-size:18px; line-height:1.45; font-weight:800; margin:0 0 17px; padding-bottom:13px; border-bottom:1px solid #e8eef6; }
+        .career-card p,.career-card li { color:#526176; font-size:14px; line-height:1.85; }
+        .career-card p { margin-bottom:10px; }
+        .career-card strong { color:#183e72; font-weight:800; }
+        .career-card ul { padding-left:20px; margin-bottom:12px; }
+        .career-card li { margin-bottom:5px; }
+        .career-card li::marker { color:var(--sv-orange); }
+        .career-card hr { border-top:1px solid #e7edf5; margin:20px 0; }
+        .career-image { width:100%; height:auto; border-radius:18px; border:1px solid var(--sv-border); display:block; margin:25px auto; box-shadow:var(--sv-shadow); }
+
+        .career-table { width:100%; border-collapse:separate; border-spacing:0; background:#fff; margin-top:0; font-size:14px; }
+        .career-table th { background:linear-gradient(110deg,var(--sv-navy),var(--sv-blue)); color:#fff; padding:17px 18px; text-align:left; font-weight:800; border:0; }
+        .career-table th:first-child { border-top-left-radius:12px; }
+        .career-table th:last-child { border-top-right-radius:12px; }
+        .career-table td { border-bottom:1px solid #e8eef6; padding:15px 18px; vertical-align:top; color:#4c5c72; line-height:1.8; }
+        .career-table tbody tr:nth-child(even) { background:#f5f8fd; }
+        .career-table tbody tr { transition:background .25s ease; }
+        .career-table tbody tr:hover { background:#eaf3ff; }
+        .career-table td strong { color:var(--sv-dark); font-weight:800; }
+        .table-responsive { border:1px solid var(--sv-border); border-radius:13px; box-shadow:var(--sv-shadow); background:#fff; }
+
+        .career-highlight { background:linear-gradient(120deg,#eaf3ff,#fff); border:1px solid #cbdcf2; border-left:5px solid var(--sv-orange); border-radius:15px; padding:27px 30px; margin-top:28px; box-shadow:0 7px 22px rgba(15,48,91,.055); transition:transform .3s ease,box-shadow .3s ease; }
+        .career-highlight:hover { transform:translateY(-4px); box-shadow:0 13px 30px rgba(15,48,91,.1); }
+        .career-highlight h4 { color:var(--sv-dark); font-size:20px; font-weight:800; margin-bottom:15px; }
+        .career-highlight p,.career-highlight li { color:#4c5c72; font-size:14px; line-height:1.9; }
+        .career-list li { margin-bottom:9px; }
+        .career-list li::marker { color:var(--sv-orange); }
+        .pathway-box { border-left:4px solid var(--sv-blue); background:#fff; padding:22px; border-radius:12px; margin-bottom:18px; box-shadow:var(--sv-shadow); }
+        .pathway-box h4 { color:var(--sv-dark); font-weight:800; }
+
+        .career-footer-cta { background:linear-gradient(120deg,#092653,#285d9f); color:#fff; text-align:center; padding:58px 20px; }
+        .career-footer-cta h2,.career-footer-cta p { color:#fff; }
+        .career-footer-cta h2 { font-weight:800; font-size:clamp(25px,3vw,34px); }
+        .career-footer-cta .career-btn { background:#fff; color:var(--sv-dark) !important; margin:10px 6px 0; }
+        .career-footer-cta .career-btn:hover { background:#ffe7b7; }
+        .career-footer { background:#f3f6fa; padding:40px 0; }
+        .career-footer h5 { color:var(--sv-dark); font-weight:800; }
+        .career-footer a { color:var(--sv-blue); }
+        .career-bottom { background:#e8eef6; color:#526176; padding:14px; text-align:center; font-size:12px; }
+        .student-question { background:#fff; border:1px solid var(--sv-border); border-radius:14px; padding:24px; margin-bottom:20px; box-shadow:var(--sv-shadow); }
+        .student-question h4 { color:var(--sv-dark); font-weight:800; }
+
+        /* Scroll reveal: elements remain visible if JavaScript is unavailable */
+        .reveal-ready .reveal-up { opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1); }
+        .reveal-ready .reveal-up.is-visible { opacity:1; transform:translateY(0); }
+        .reveal-ready .reveal-left { opacity:0; transform:translateX(-22px); transition:opacity .65s ease,transform .65s ease; }
+        .reveal-ready .reveal-left.is-visible { opacity:1; transform:translateX(0); }
+        .career-card:nth-child(2) { transition-delay:.06s; }
+        .career-card:nth-child(3) { transition-delay:.12s; }
+        .career-card:nth-child(4) { transition-delay:.18s; }
+        .career-card:nth-child(5) { transition-delay:.24s; }
+
+        @media(max-width:767px) {
+            .career-banner { padding:52px 18px; }
+            .career-banner p { font-size:14px; }
+            .career-section { padding:48px 0; }
+            .section-heading { font-size:24px; }
+            .section-intro { font-size:14px; margin-bottom:28px; }
+            .career-card { padding:22px; border-radius:14px; }
+            .career-card h4 { font-size:16px; }
+            .career-card p,.career-card li { font-size:13px; }
+            .career-table { font-size:12px; min-width:600px; }
+            .career-table th,.career-table td { padding:11px 12px; }
+            .career-highlight { padding:21px; }
+            .career-logo { max-height:55px; }
+        }
+        @media(prefers-reduced-motion:reduce) {
+            html { scroll-behavior:auto; }
+            *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+            .reveal-ready .reveal-up,.reveal-ready .reveal-left { opacity:1; transform:none; }
+        }
+
     </style>
 </head>
 
@@ -296,7 +427,7 @@
 
         <a class="navbar-brand" href="index.html">
             <img class="career-logo"
-                 src="/img/Sri_Vidyalaya_Emblem_High_Resolution_Transparent_300DPI (1).png"
+                 src="/img/Sri_Vidyalaya_Emblem_High_Resolution_Transparent_300DPI%20(1).png"
                  alt="Sri Vidyalaya PU College Logo">
         </a>
 
@@ -337,6 +468,7 @@
 <!-- PAGE BANNER -->
 <section class="career-banner">
     <div class="container">
+        <span class="banner-kicker">Sri Vidyalaya PU College • Career Guidance</span>
         <h1>CAREER ROADMAP AFTER 2ND PUC COMMERCE</h1>
         <p>
             Discover the right degree, professional qualifications,
@@ -364,7 +496,7 @@
         </p>
 
         <img
-            src="img/Sri Vidyalaya Commerce Career Pathways.png"
+            src="img/Sri%20Vidyalaya%20Commerce%20Career%20Pathways.png"
             class="career-image"
             alt="Career Opportunities After 2nd PUC Commerce infographic">
 
@@ -373,7 +505,7 @@
 
 
 <!-- SECTION 1 -->
-<section class="career-section">
+<section class="career-section" id="career-combinations">
     <div class="container">
 
         <h2 class="section-heading">
@@ -497,7 +629,7 @@
 
 
 <!-- SECTION 2 -->
-<section class="career-section">
+<section class="career-section" id="puc-combination">
     <div class="container">
 
         <h2 class="section-heading">
@@ -925,7 +1057,7 @@
 
             <div class="col-md-3 mb-4">
                 <img
-                    src="/img/Sri_Vidyalaya_Emblem_High_Resolution_Transparent_300DPI (1).png"
+                    src="/img/Sri_Vidyalaya_Emblem_High_Resolution_Transparent_300DPI%20(1).png"
                     class="career-logo"
                     alt="Sri Vidyalaya PU College">
                 <p class="mt-3">
@@ -967,6 +1099,33 @@
     © 2026 Sri Vidyalaya PU College. All Rights Reserved.
 </div>
 
+
+
+<script>
+(function () {
+    document.documentElement.classList.add('reveal-ready');
+    var revealItems = document.querySelectorAll(
+        '.career-section .career-card, .career-section .section-heading, .career-section .section-intro, .career-section .table-responsive, .career-section .career-highlight, .career-image'
+    );
+    revealItems.forEach(function (item, index) {
+        item.classList.add('reveal-up');
+        item.style.transitionDelay = (Math.min(index % 5, 4) * 65) + 'ms';
+    });
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+        revealItems.forEach(function (item) { observer.observe(item); });
+    } else {
+        revealItems.forEach(function (item) { item.classList.add('is-visible'); });
+    }
+})();
+</script>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>
